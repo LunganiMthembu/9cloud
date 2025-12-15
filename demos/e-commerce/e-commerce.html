@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarah Chen - E-Commerce Design Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        secondary: '#F97316',
+                        accent: '#10B981',
+                        navy: '#0F172A',
+                        coral: '#FF6B6B',
+                    },
+                    fontFamily: {
+                        'display': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-card {
+            transition: all 0.4s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .metric-counter {
+            font-weight: 800;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #1E40AF, #F97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .conversion-badge {
+            background: linear-gradient(135deg, #10B981, #059669);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .before-after {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .before-after::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 50%;
+            bottom: 0;
+            background: rgba(239, 68, 68, 0.1);
+            z-index: 1;
+        }
+        
+        .before-after::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            right: 0;
+            bottom: 0;
+            background: rgba(16, 185, 129, 0.1);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-display">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold text-navy">SC</div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-primary transition-colors">Home</a>
+                    <a href="#portfolio" class="nav-link text-gray-700 hover:text-primary transition-colors">Portfolio</a>
+                    <a href="#case-studies" class="nav-link text-gray-700 hover:text-primary transition-colors">Case Studies</a>
+                    <a href="#services" class="nav-link text-gray-700 hover:text-primary transition-colors">Services</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-primary transition-colors">Contact</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-primary">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-primary transition-colors">Home</a>
+                <a href="#portfolio" class="block py-2 text-gray-700 hover:text-primary transition-colors">Portfolio</a>
+                <a href="#case-studies" class="block py-2 text-gray-700 hover:text-primary transition-colors">Case Studies</a>
+                <a href="#services" class="block py-2 text-gray-700 hover:text-primary transition-colors">Services</a>
+                <a href="#contact" class="block py-2 text-gray-700 hover:text-primary transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center gradient-bg pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <div class="fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    E-Commerce Design
+                    <span class="block text-secondary">That Converts</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">
+                    Shopify specialist crafting high-converting store designs, optimized product pages, 
+                    and marketing visuals that drive sales and enhance user experience.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                    <a href="#portfolio" class="bg-secondary text-white px-8 py-4 rounded-lg hover:bg-orange-600 transition-colors font-semibold">
+                        View My Work
+                    </a>
+                    <a href="#contact" class="border-2 border-white text-white px-8 py-4 rounded-lg hover:bg-white hover:text-navy transition-colors font-semibold">
+                        Let's Talk
+                    </a>
+                </div>
+                
+                <!-- Key Metrics -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="metric-counter">150+</div>
+                        <p class="text-lg opacity-90">Stores Designed</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="metric-counter">45%</div>
+                        <p class="text-lg opacity-90">Avg. Conversion Lift</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="metric-counter">$2.5M+</div>
+                        <p class="text-lg opacity-90">Revenue Generated</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="metric-counter">98%</div>
+                        <p class="text-lg opacity-90">Client Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-navy mb-6">Featured Projects</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Explore my latest e-commerce designs that have driven significant improvements 
+                    in conversion rates and user engagement.
+                </p>
+            </div>
+            
+            <!-- Project Categories -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12 fade-in">
+                <button class="filter-btn active bg-primary text-white px-6 py-3 rounded-full font-semibold" data-filter="all">
+                    All Projects
+                </button>
+                <button class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300" data-filter="shop-ui">
+                    Shop UI
+                </button>
+                <button class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300" data-filter="product-pages">
+                    Product Pages
+                </button>
+                <button class="filter-btn bg-gray-200 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-300" data-filter="marketing">
+                    Marketing Visuals
+                </button>
+            </div>
+            
+            <!-- Projects Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: Luxury Fashion Store -->
+                <div class="project-card bg-white rounded-2xl shadow-lg overflow-hidden fade-in" data-category="shop-ui">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Luxury Fashion Store" class="w-full h-64 object-cover">
+                        <div class="conversion-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            +67% CVR
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-navy mb-2">Luxury Fashion Store</h3>
+                        <p class="text-gray-600 mb-4">Complete Shopify store redesign focusing on premium brand positioning and mobile-first experience.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Shopify Plus</span>
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">UI/UX</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Mobile-First</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">Fashion & Apparel</span>
+                            <button class="text-primary hover:text-secondary font-semibold">View Case Study →</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Tech Product Page -->
+                <div class="project-card bg-white rounded-2xl shadow-lg overflow-hidden fade-in" data-category="product-pages">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Tech Product Page" class="w-full h-64 object-cover">
+                        <div class="conversion-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            +89% Sales
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-navy mb-2">Smart Device Product Page</h3>
+                        <p class="text-gray-600 mb-4">Optimized product page with interactive features, social proof, and conversion-focused layout.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Product Page</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">CRO</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">A/B Tested</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">Electronics</span>
+                            <button class="text-primary hover:text-secondary font-semibold">View Case Study →</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3: Beauty Brand Marketing -->
+                <div class="project-card bg-white rounded-2xl shadow-lg overflow-hidden fade-in" data-category="marketing">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Beauty Brand Marketing" class="w-full h-64 object-cover">
+                        <div class="conversion-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            +156% CTR
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-navy mb-2">Beauty Brand Campaign</h3>
+                        <p class="text-gray-600 mb-4">Complete marketing visual suite including social media assets, email templates, and landing pages.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Marketing</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Branding</span>
+                            <span class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm">Social Media</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">Beauty & Cosmetics</span>
+                            <button class="text-primary hover:text-secondary font-semibold">View Case Study →</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4: Home Decor Store -->
+                <div class="project-card bg-white rounded-2xl shadow-lg overflow-hidden fade-in" data-category="shop-ui">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Home Decor Store" class="w-full h-64 object-cover">
+                        <div class="conversion-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            +43% AOV
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-navy mb-2">Modern Home Decor</h3>
+                        <p class="text-gray-600 mb-4">Minimalist store design with advanced filtering, wishlist functionality, and room visualization.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Shopify</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Custom Features</span>
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">AR Integration</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">Home & Garden</span>
+                            <button class="text-primary hover:text-secondary font-semibold">View Case Study →</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5: Fitness Product Page -->
+                <div class="project-card bg-white rounded-2xl shadow-lg overflow-hidden fade-in" data-category="product-pages">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Fitness Product Page" class="w-full h-64 object-cover">
+                        <div class="conversion-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            +72% CVR
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-navy mb-2">Fitness Equipment Page</h3>
+                        <p class="text-gray-600 mb-4">High-converting product page with video demonstrations, size guides, and social proof integration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Video Content</span>
+                            <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Social Proof</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Size Guide</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">Sports & Fitness</span>
+                            <button class="text-primary hover:text-secondary font-semibold">View Case Study →</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6: Food Brand Marketing -->
+                <div class="project-card bg-white rounded-2xl shadow-lg overflow-hidden fade-in" data-category="marketing">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1567306301408-9b74779a11af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Food Brand Marketing" class="w-full h-64 object-cover">
+                        <div class="conversion-badge absolute top-4 right-4 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            +234% Engagement
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-navy mb-2">Organic Food Campaign</h3>
+                        <p class="text-gray-600 mb-4">Comprehensive marketing design including packaging, social content, and email marketing templates.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Packaging</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Email Design</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Content Strategy</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">Food & Beverage</span>
+                            <button class="text-primary hover:text-secondary font-semibold">View Case Study →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="case-studies" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-navy mb-6">Detailed Case Studies</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Deep dive into the strategy, process, and results behind my most successful e-commerce projects.
+                </p>
+            </div>
+            
+            <!-- Case Study 1 -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12 fade-in">
+                <div class="grid lg:grid-cols-2 gap-0">
+                    <div class="p-8 lg:p-12">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="bg-accent text-white px-4 py-2 rounded-full text-sm font-bold">Case Study</span>
+                            <span class="text-gray-500">Fashion E-commerce</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-navy mb-4">67% Conversion Rate Increase</h3>
+                        <p class="text-gray-600 mb-6 text-lg">
+                            Complete redesign of a luxury fashion store focusing on mobile experience, 
+                            product discovery, and checkout optimization.
+                        </p>
+                        
+                        <div class="space-y-4 mb-8">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700 font-medium">Conversion Rate</span>
+                                <span class="text-accent font-bold">+67%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700 font-medium">Average Order Value</span>
+                                <span class="text-accent font-bold">+34%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700 font-medium">Mobile Revenue</span>
+                                <span class="text-accent font-bold">+89%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700 font-medium">Page Load Speed</span>
+                                <span class="text-accent font-bold">+45%</span>
+                            </div>
+                        </div>
+                        
+                        <button class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                            Read Full Case Study
+                        </button>
+                    </div>
+                    <div class="before-after relative">
+                        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Before and After Comparison" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded text-sm font-bold">BEFORE</div>
+                        <div class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded text-sm font-bold">AFTER</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Case Study 2 -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden fade-in">
+                <div class="grid lg:grid-cols-2 gap-0">
+                    <div class="before-after relative order-2 lg:order-1">
+                        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Product Page Optimization" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded text-sm font-bold">BEFORE</div>
+                        <div class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded text-sm font-bold">AFTER</div>
+                    </div>
+                    <div class="p-8 lg:p-12 order-1 lg:order-2">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="bg-secondary text-white px-4 py-2 rounded-full text-sm font-bold">Case Study</span>
+                            <span class="text-gray-500">Product Page Optimization</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-navy mb-4">89% Sales Increase</h3>
+                        <p class="text-gray-600 mb-6 text-lg">
+                            Strategic product page redesign with enhanced visuals, social proof integration, 
+                            and streamlined purchase flow.
+                        </p>
+                        
+                        <div class="space-y-4 mb-8">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700 font-medium">Product Sales</span>
+                                <span class="text-secondary font-bold">+89%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700 font-medium">Add to Cart Rate</span>
+                                <span class="text-secondary font-bold">+56%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700 font-medium">Time on Page</span>
+                                <span class="text-secondary font-bold">+78%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700 font-medium">Return Rate</span>
+                                <span class="text-secondary font-bold">-23%</span>
+                            </div>
+                        </div>
+                        
+                        <button class="bg-secondary text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors font-semibold">
+                            Read Full Case Study
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-navy mb-6">Services</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Comprehensive e-commerce design services to help your business grow and convert better.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-2xl fade-in">
+                    <div class="bg-primary w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-4">Shopify Store Design</h3>
+                    <p class="text-gray-600 mb-6">Complete store design and development with focus on conversions, user experience, and brand consistency.</p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> Custom theme development</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> Mobile-first design</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> Performance optimization</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> SEO implementation</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-gradient-to-br from-orange-50 to-red-100 p-8 rounded-2xl fade-in">
+                    <div class="bg-secondary w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-4">Conversion Optimization</h3>
+                    <p class="text-gray-600 mb-6">Data-driven optimization to improve conversion rates, reduce cart abandonment, and increase average order value.</p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> A/B testing setup</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> Checkout optimization</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> Product page enhancement</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> Analytics implementation</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-100 p-8 rounded-2xl fade-in">
+                    <div class="bg-accent w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-10 0a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2M9 12l2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-4">Marketing Design</h3>
+                    <p class="text-gray-600 mb-6">Complete marketing visual suite including social media assets, email templates, and advertising materials.</p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> Social media templates</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> Email campaign design</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> Ad creative development</li>
+                        <li class="flex items-center"><span class="text-accent mr-2">✓</span> Brand guideline creation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-navy mb-6">Client Success Stories</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Hear from business owners who've seen remarkable growth with my e-commerce designs.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg fade-in">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-navy">Emma Rodriguez</h4>
+                            <p class="text-gray-600 text-sm">Founder, Luxe Fashion</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "Sarah's redesign transformed our store completely. Our conversion rate increased by 67% 
+                        and mobile sales are through the roof. The attention to detail is incredible."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        ★★★★★
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg fade-in">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-navy">Michael Chen</h4>
+                            <p class="text-gray-600 text-sm">CEO, TechGear Pro</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "The product page optimization Sarah did for us resulted in an 89% increase in sales. 
+                        Her understanding of e-commerce psychology is exceptional."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        ★★★★★
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg fade-in">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-navy">Lisa Thompson</h4>
+                            <p class="text-gray-600 text-sm">Marketing Director, Pure Beauty</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "Our marketing campaigns have never performed better. Sarah's designs increased our 
+                        click-through rates by 156% and our brand recognition has skyrocketed."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        ★★★★★
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-navy text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Boost Your Conversions?</h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                    Let's discuss how I can help transform your e-commerce store into a conversion machine.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Contact Info -->
+                <div class="fade-in">
+                    <h3 class="text-3xl font-bold mb-8">Let's Work Together</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="bg-secondary w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Email</p>
+                                <p class="opacity-90">sarah@ecommercedesign.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="bg-secondary w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Location</p>
+                                <p class="opacity-90">San Francisco, CA</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="bg-secondary w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Availability</p>
+                                <p class="opacity-90">Available for new projects</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <p class="text-lg mb-4">Project starting at <span class="text-secondary font-bold">$5,000</span></p>
+                        <p class="opacity-90">Typical project timeline: 2-4 weeks</p>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl fade-in">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary text-white placeholder-white/70">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary text-white placeholder-white/70">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="project-type" class="block text-sm font-medium mb-2">Project Type</label>
+                            <select id="project-type" name="project-type" class="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary text-white">
+                                <option value="">Select project type</option>
+                                <option value="store-design">Complete Store Design</option>
+                                <option value="product-pages">Product Page Optimization</option>
+                                <option value="marketing">Marketing Design</option>
+                                <option value="conversion">Conversion Optimization</option>
+                                <option value="consultation">Design Consultation</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="budget" class="block text-sm font-medium mb-2">Budget Range</label>
+                            <select id="budget" name="budget" class="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary text-white">
+                                <option value="">Select budget range</option>
+                                <option value="5k-10k">$5,000 - $10,000</option>
+                                <option value="10k-25k">$10,000 - $25,000</option>
+                                <option value="25k-50k">$25,000 - $50,000</option>
+                                <option value="50k+">$50,000+</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-2">Project Details</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary text-white placeholder-white/70" placeholder="Tell me about your project, goals, and timeline..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-secondary text-white py-4 px-6 rounded-lg hover:bg-orange-600 transition-colors font-semibold text-lg">
+                            Start Your Project
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Sarah Chen</h3>
+                    <p class="text-gray-400 mb-4">E-Commerce Design Specialist</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Shopify Design</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Product Pages</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Marketing Design</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">CRO Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Case Studies</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Design Process</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">E-commerce Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Free Resources</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>sarah@ecommercedesign.com</li>
+                        <li>San Francisco, CA</li>
+                        <li>Available for projects</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Sarah Chen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Project filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-primary', 'text-white');
+                    b.classList.add('bg-gray-200', 'text-gray-700');
+                });
+                btn.classList.add('active', 'bg-primary', 'text-white');
+                btn.classList.remove('bg-gray-200', 'text-gray-700');
+
+                // Filter projects
+                const filter = btn.getAttribute('data-filter');
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const projectType = formData.get('project-type');
+            const budget = formData.get('budget');
+            const message = formData.get('message');
+            
+            if (name && email && message) {
+                alert('Thank you for your inquiry! I\'ll get back to you within 24 hours to discuss your project.');
+                this.reset();
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        // Active navigation link highlighting
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-primary');
+                link.classList.add('text-gray-700');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.remove('text-gray-700');
+                    link.classList.add('text-primary');
+                }
+            });
+        });
+
+        // Counter animation for metrics
+        function animateCounters() {
+            const counters = document.querySelectorAll('.metric-counter');
+            counters.forEach(counter => {
+                const target = counter.textContent;
+                const isPercentage = target.includes('%');
+                const isDollar = target.includes('$');
+                const isPlus = target.includes('+');
+                
+                let numericTarget = parseFloat(target.replace(/[^0-9.]/g, ''));
+                let current = 0;
+                const increment = numericTarget / 50;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= numericTarget) {
+                        current = numericTarget;
+                        clearInterval(timer);
+                    }
+                    
+                    let displayValue = Math.floor(current);
+                    if (isDollar) displayValue = '$' + displayValue + 'M+';
+                    else if (isPercentage) displayValue = displayValue + '%';
+                    else if (isPlus) displayValue = displayValue + '+';
+                    
+                    counter.textContent = displayValue;
+                }, 50);
+            });
+        }
+
+        // Trigger counter animation when hero section is visible
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        heroObserver.observe(document.getElementById('home'));
+    </script>
+</body>
+</html>

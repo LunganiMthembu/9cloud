@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/blue-logo.ico" type="image/x-icon">
+    <title>Quiz Center - African Humanities University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'university-blue': '#1e40af',
+                        'university-light-blue': '#3b82f6',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans bg-gray-50 dark:bg-gray-900">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-100 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="flex items-center">
+                            <div class="w-8 h-8 bg-university-blue rounded-sm flex items-center justify-center mr-3">
+                                <span class="text-white font-bold text-sm">AHU</span>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-semibold text-gray-900 dark:text-white">African Humanities</div>
+                                <div class="text-gray-600 dark:text-gray-300">University</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                        <a href="academics.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Academics</a>
+                        <a href="quiz.html" class="text-university-blue px-3 py-2 text-sm font-medium">Quiz</a>
+                        <a href="flashcards.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Flashcards</a>
+                        <a href="progress.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Progress</a>
+                        <a href="resources.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Resources</a>
+                        <a href="contact.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Dark Mode Toggle -->
+                <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Quiz Center</h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300">Test your knowledge with interactive quizzes</p>
+        </div>
+
+        <!-- Quiz Selection -->
+        <div id="quizSelection" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer quiz-card" data-subject="mathematics">
+                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Mathematics</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Test your math skills with algebra, geometry, and calculus questions</p>
+                <div class="text-sm text-gray-500 dark:text-gray-400">10 Questions • 15 minutes</div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer quiz-card" data-subject="science">
+                <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Science</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Explore physics, chemistry, and biology concepts</p>
+                <div class="text-sm text-gray-500 dark:text-gray-400">12 Questions • 20 minutes</div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer quiz-card" data-subject="history">
+                <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">History</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Journey through world history and important events</p>
+                <div class="text-sm text-gray-500 dark:text-gray-400">8 Questions • 12 minutes</div>
+            </div>
+        </div>
+
+        <!-- Quiz Interface -->
+        <div id="quizInterface" class="hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+                <!-- Quiz Header -->
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 id="quizTitle" class="text-2xl font-bold text-gray-900 dark:text-white"></h2>
+                        <p class="text-gray-600 dark:text-gray-300">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-500 dark:text-gray-400">Score</div>
+                        <div id="currentScore" class="text-2xl font-bold text-university-blue">0</div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-8">
+                    <div id="progressBar" class="bg-university-blue h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <!-- Question -->
+                <div class="mb-8">
+                    <h3 id="questionText" class="text-xl font-semibold text-gray-900 dark:text-white mb-6"></h3>
+                    <div id="answerOptions" class="space-y-3"></div>
+                </div>
+
+                <!-- Feedback -->
+                <div id="feedback" class="hidden mb-6 p-4 rounded-lg"></div>
+
+                <!-- Navigation -->
+                <div class="flex justify-between">
+                    <button id="backToSelection" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                        Back to Selection
+                    </button>
+                    <button id="nextQuestion" class="px-6 py-3 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors hidden">
+                        Next Question
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="quizResults" class="hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
+                <div class="w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Quiz Complete!</h2>
+                <div class="text-6xl font-bold text-university-blue mb-4" id="finalScore">0</div>
+                <p class="text-xl text-gray-600 dark:text-gray-300 mb-8" id="scoreMessage"></p>
+                
+                <div class="flex justify-center space-x-4">
+                    <button id="retakeQuiz" class="px-6 py-3 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Retake Quiz
+                    </button>
+                    <button id="viewHistory" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                        View History
+                    </button>
+                    <button id="newQuiz" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                        Try Another Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz History -->
+        <div id="quizHistory" class="hidden mt-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Quiz History</h3>
+                <div id="historyList" class="space-y-4"></div>
+                <button id="clearHistory" class="mt-6 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                    Clear History
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Quiz Data
+        const quizData = {
+            mathematics: {
+                title: "Mathematics Quiz",
+                questions: [
+                    {
+                        question: "What is the derivative of x²?",
+                        options: ["2x", "x", "2", "x²"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the value of π (pi) approximately?",
+                        options: ["3.14159", "2.71828", "1.41421", "1.73205"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the quadratic formula?",
+                        options: ["x = -b ± √(b²-4ac) / 2a", "x = a² + b²", "x = 2πr", "x = mv²"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is 15% of 200?",
+                        options: ["30", "25", "35", "20"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the area of a circle with radius 5?",
+                        options: ["25π", "10π", "5π", "15π"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the slope of the line y = 3x + 2?",
+                        options: ["3", "2", "1", "5"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is log₁₀(100)?",
+                        options: ["2", "10", "100", "1"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the sum of angles in a triangle?",
+                        options: ["180°", "360°", "90°", "270°"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is √64?",
+                        options: ["8", "6", "10", "4"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is 2³ × 2²?",
+                        options: ["32", "16", "8", "64"],
+                        correct: 0
+                    }
+                ]
+            },
+            science: {
+                title: "Science Quiz",
+                questions: [
+                    {
+                        question: "What is the chemical symbol for gold?",
+                        options: ["Au", "Ag", "Go", "Gd"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the speed of light in vacuum?",
+                        options: ["299,792,458 m/s", "300,000,000 m/s", "150,000,000 m/s", "200,000,000 m/s"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the powerhouse of the cell?",
+                        options: ["Mitochondria", "Nucleus", "Ribosome", "Chloroplast"],
+                        correct: 0
+                    },
+                    {
+                        question: "What gas do plants absorb from the atmosphere?",
+                        options: ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the hardest natural substance?",
+                        options: ["Diamond", "Quartz", "Steel", "Iron"],
+                        correct: 0
+                    },
+                    {
+                        question: "How many bones are in an adult human body?",
+                        options: ["206", "208", "204", "210"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the most abundant gas in Earth's atmosphere?",
+                        options: ["Nitrogen", "Oxygen", "Carbon dioxide", "Argon"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the pH of pure water?",
+                        options: ["7", "0", "14", "1"],
+                        correct: 0
+                    },
+                    {
+                        question: "What force keeps planets in orbit around the sun?",
+                        options: ["Gravity", "Magnetism", "Nuclear force", "Friction"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the smallest unit of matter?",
+                        options: ["Atom", "Molecule", "Electron", "Proton"],
+                        correct: 0
+                    },
+                    {
+                        question: "What type of blood cells fight infection?",
+                        options: ["White blood cells", "Red blood cells", "Platelets", "Plasma"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the study of earthquakes called?",
+                        options: ["Seismology", "Geology", "Meteorology", "Astronomy"],
+                        correct: 0
+                    }
+                ]
+            },
+            history: {
+                title: "History Quiz",
+                questions: [
+                    {
+                        question: "In which year did World War II end?",
+                        options: ["1945", "1944", "1946", "1943"],
+                        correct: 0
+                    },
+                    {
+                        question: "Who was the first President of the United States?",
+                        options: ["George Washington", "Thomas Jefferson", "John Adams", "Benjamin Franklin"],
+                        correct: 0
+                    },
+                    {
+                        question: "Which empire was ruled by Julius Caesar?",
+                        options: ["Roman Empire", "Greek Empire", "Egyptian Empire", "Persian Empire"],
+                        correct: 0
+                    },
+                    {
+                        question: "In which year did the Berlin Wall fall?",
+                        options: ["1989", "1987", "1991", "1985"],
+                        correct: 0
+                    },
+                    {
+                        question: "Who wrote the Declaration of Independence?",
+                        options: ["Thomas Jefferson", "George Washington", "John Adams", "Benjamin Franklin"],
+                        correct: 0
+                    },
+                    {
+                        question: "Which ancient wonder of the world was located in Alexandria?",
+                        options: ["Lighthouse of Alexandria", "Hanging Gardens", "Colossus of Rhodes", "Statue of Zeus"],
+                        correct: 0
+                    },
+                    {
+                        question: "What year did the Titanic sink?",
+                        options: ["1912", "1910", "1914", "1911"],
+                        correct: 0
+                    },
+                    {
+                        question: "Who was known as the 'Iron Lady'?",
+                        options: ["Margaret Thatcher", "Queen Elizabeth II", "Golda Meir", "Indira Gandhi"],
+                        correct: 0
+                    }
+                ]
+            }
+        };
+
+        // Quiz State
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+
+        // DOM Elements
+        const quizSelection = document.getElementById('quizSelection');
+        const quizInterface = document.getElementById('quizInterface');
+        const quizResults = document.getElementById('quizResults');
+        const quizHistory = document.getElementById('quizHistory');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDarkMode();
+            setupEventListeners();
+            loadQuizHistory();
+        });
+
+        function initializeDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+
+            darkModeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            });
+        }
+
+        function setupEventListeners() {
+            // Quiz card selection
+            document.querySelectorAll('.quiz-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const subject = this.dataset.subject;
+                    startQuiz(subject);
+                });
+            });
+
+            // Navigation buttons
+            document.getElementById('backToSelection').addEventListener('click', showQuizSelection);
+            document.getElementById('nextQuestion').addEventListener('click', nextQuestion);
+            document.getElementById('retakeQuiz').addEventListener('click', retakeCurrentQuiz);
+            document.getElementById('newQuiz').addEventListener('click', showQuizSelection);
+            document.getElementById('viewHistory').addEventListener('click', toggleQuizHistory);
+            document.getElementById('clearHistory').addEventListener('click', clearQuizHistory);
+        }
+
+        function startQuiz(subject) {
+            currentQuiz = quizData[subject];
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedAnswer = null;
+
+            document.getElementById('quizTitle').textContent = currentQuiz.title;
+            document.getElementById('totalQuestions').textContent = currentQuiz.questions.length;
+            
+            quizSelection.classList.add('hidden');
+            quizResults.classList.add('hidden');
+            quizHistory.classList.add('hidden');
+            quizInterface.classList.remove('hidden');
+
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = currentQuiz.questions[currentQuestionIndex];
+            
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('currentScore').textContent = score;
+            document.getElementById('questionText').textContent = question.question;
+            
+            // Update progress bar
+            const progress = ((currentQuestionIndex + 1) / currentQuiz.questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // Create answer options
+            const optionsContainer = document.getElementById('answerOptions');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'w-full text-left p-4 rounded-lg border-2 border-gray-200 dark:border-gray-600 hover:border-university-blue hover:bg-blue-50 dark:hover:bg-blue-900 transition-colors answer-option';
+                button.textContent = option;
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsContainer.appendChild(button);
+            });
+
+            // Hide feedback and next button
+            document.getElementById('feedback').classList.add('hidden');
+            document.getElementById('nextQuestion').classList.add('hidden');
+            selectedAnswer = null;
+        }
+
+        function selectAnswer(event) {
+            if (selectedAnswer !== null) return; // Prevent multiple selections
+
+            const selectedIndex = parseInt(event.target.dataset.index);
+            const question = currentQuiz.questions[currentQuestionIndex];
+            const isCorrect = selectedIndex === question.correct;
+            
+            selectedAnswer = selectedIndex;
+
+            // Update UI
+            const options = document.querySelectorAll('.answer-option');
+            options.forEach((option, index) => {
+                option.classList.remove('hover:border-university-blue', 'hover:bg-blue-50', 'dark:hover:bg-blue-900');
+                if (index === question.correct) {
+                    option.classList.add('border-green-500', 'bg-green-50', 'dark:bg-green-900');
+                } else if (index === selectedIndex && !isCorrect) {
+                    option.classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900');
+                } else {
+                    option.classList.add('opacity-50');
+                }
+            });
+
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.classList.remove('hidden');
+            
+            if (isCorrect) {
+                score++;
+                feedback.className = 'mb-6 p-4 rounded-lg bg-green-100 dark:bg-green-900 border border-green-500';
+                feedback.innerHTML = '<div class="flex items-center"><svg class="w-5 h-5 text-green-600 dark:text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span class="text-green-800 dark:text-green-200 font-semibold">Correct!</span></div>';
+            } else {
+                feedback.className = 'mb-6 p-4 rounded-lg bg-red-100 dark:bg-red-900 border border-red-500';
+                feedback.innerHTML = `<div class="flex items-center"><svg class="w-5 h-5 text-red-600 dark:text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg><span class="text-red-800 dark:text-red-200 font-semibold">Incorrect. The correct answer is: ${question.options[question.correct]}</span></div>`;
+            }
+
+            // Show next button or finish quiz
+            if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                document.getElementById('nextQuestion').classList.remove('hidden');
+            } else {
+                setTimeout(finishQuiz, 2000);
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        function finishQuiz() {
+            const percentage = Math.round((score / currentQuiz.questions.length) * 100);
+            
+            // Save to history
+            saveQuizResult({
+                subject: currentQuiz.title,
+                score: score,
+                total: currentQuiz.questions.length,
+                percentage: percentage,
+                date: new Date().toLocaleDateString()
+            });
+
+            // Show results
+            document.getElementById('finalScore').textContent = `${score}/${currentQuiz.questions.length}`;
+            document.getElementById('scoreMessage').textContent = getScoreMessage(percentage);
+            
+            quizInterface.classList.add('hidden');
+            quizResults.classList.remove('hidden');
+        }
+
+        function getScoreMessage(percentage) {
+            if (percentage >= 90) return "Excellent! Outstanding performance!";
+            if (percentage >= 80) return "Great job! Well done!";
+            if (percentage >= 70) return "Good work! Keep it up!";
+            if (percentage >= 60) return "Not bad! Room for improvement.";
+            return "Keep studying! You'll do better next time.";
+        }
+
+        function saveQuizResult(result) {
+            let history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+            history.unshift(result);
+            history = history.slice(0, 20); // Keep only last 20 results
+            localStorage.setItem('quizHistory', JSON.stringify(history));
+        }
+
+        function loadQuizHistory() {
+            const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+            const historyList = document.getElementById('historyList');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<p class="text-gray-500 dark:text-gray-400">No quiz history yet. Take a quiz to see your results here!</p>';
+                return;
+            }
+
+            historyList.innerHTML = history.map(result => `
+                <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div>
+                        <div class="font-semibold text-gray-900 dark:text-white">${result.subject}</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">${result.date}</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-bold text-university-blue">${result.score}/${result.total}</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">${result.percentage}%</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showQuizSelection() {
+            quizInterface.classList.add('hidden');
+            quizResults.classList.add('hidden');
+            quizHistory.classList.add('hidden');
+            quizSelection.classList.remove('hidden');
+        }
+
+        function retakeCurrentQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedAnswer = null;
+            
+            quizResults.classList.add('hidden');
+            quizInterface.classList.remove('hidden');
+            showQuestion();
+        }
+
+        function toggleQuizHistory() {
+            loadQuizHistory();
+            quizHistory.classList.toggle('hidden');
+        }
+
+        function clearQuizHistory() {
+            if (confirm('Are you sure you want to clear your quiz history?')) {
+                localStorage.removeItem('quizHistory');
+                loadQuizHistory();
+            }
+        }
+    </script>
+</body>
+</html>

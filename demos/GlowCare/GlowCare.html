@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="blue-logo.ico" type="image/x-icon">
+    <title>GlowCare - Premium Facial Products</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'burnt-sienna': '#D97742',
+                        'ivory': '#FDFBF7',
+                        'charcoal': '#2E2E2E',
+                        'soft-beige': '#F5F0EB',
+                        'rust': '#B25640',
+                        'warm-gray': '#7F7F7F',
+                        'sandstone': '#E0D8CF'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #2E2E2E;
+        }
+        
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link.active {
+            color: #D97742;
+            font-weight: 600;
+        }
+        
+        .product-image {
+            transition: transform 0.3s ease;
+        }
+        
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .thumbnail {
+            transition: all 0.3s ease;
+        }
+        
+        .thumbnail.active {
+            border-color: #D97742;
+            border-width: 2px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .star {
+            color: #E0D8CF;
+        }
+        
+        .star.filled {
+            color: #D97742;
+        }
+        
+        .zoom-container {
+            position: relative;
+            overflow: hidden;
+            cursor: zoom-in;
+        }
+        
+        .zoom-image {
+            transition: transform 0.3s ease;
+        }
+        
+        .zoom-image.zoomed {
+            transform: scale(1.5);
+            cursor: zoom-out;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #F5F0EB 0%, #FDFBF7 100%);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+            
+            .mobile-menu.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-ivory">
+    <!-- Header -->
+    <header class="bg-soft-beige border-b border-sandstone sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <h1 class="text-2xl font-bold text-charcoal cursor-pointer" onclick="showPage('home')">GlowCare</h1>
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="#" class="nav-link text-charcoal hover:text-burnt-sienna transition-colors active" onclick="showPage('home')">Home</a>
+                        <a href="#" class="nav-link text-charcoal hover:text-burnt-sienna transition-colors" onclick="showPage('products')">Products</a>
+                        <a href="#" class="nav-link text-charcoal hover:text-burnt-sienna transition-colors" onclick="showPage('skincare-tips')">Skincare Tips</a>
+                        <a href="#" class="nav-link text-charcoal hover:text-burnt-sienna transition-colors" onclick="showPage('about')">About</a>
+                        <a href="#" class="nav-link text-charcoal hover:text-burnt-sienna transition-colors" onclick="showPage('contact')">Contact</a>
+                    </nav>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="text-charcoal hover:text-burnt-sienna transition-colors" onclick="showPage('search')">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                    <button id="wishlist-btn" class="text-charcoal hover:text-burnt-sienna transition-colors" onclick="showPage('wishlist')">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                    <button id="cart-btn" class="relative text-charcoal hover:text-burnt-sienna transition-colors" onclick="showPage('cart')">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01"></path>
+                        </svg>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-rust text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="md:hidden text-charcoal">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="mobile-menu" class="mobile-menu md:hidden py-4 border-t border-sandstone">
+                <nav class="flex flex-col space-y-2">
+                    <a href="#" class="text-charcoal hover:text-burnt-sienna transition-colors py-2" onclick="showPage('home')">Home</a>
+                    <a href="#" class="text-charcoal hover:text-burnt-sienna transition-colors py-2" onclick="showPage('products')">Products</a>
+                    <a href="#" class="text-charcoal hover:text-burnt-sienna transition-colors py-2" onclick="showPage('skincare-tips')">Skincare Tips</a>
+                    <a href="#" class="text-charcoal hover:text-burnt-sienna transition-colors py-2" onclick="showPage('about')">About</a>
+                    <a href="#" class="text-charcoal hover:text-burnt-sienna transition-colors py-2" onclick="showPage('contact')">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page-section active">
+        <!-- Hero Section -->
+        <section class="hero-section py-20">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-5xl md:text-6xl font-bold text-charcoal mb-6">
+                    Discover Your <span class="text-burnt-sienna">Glow</span>
+                </h1>
+                <p class="text-xl text-warm-gray mb-8 max-w-2xl mx-auto">
+                    Premium skincare solutions backed by science. Transform your skin with our carefully curated collection of facial products.
+                </p>
+                <div class="space-x-4">
+                    <button class="bg-rust hover:bg-burnt-sienna text-white px-8 py-4 rounded-lg font-semibold transition-colors" onclick="showPage('products')">
+                        Shop Now
+                    </button>
+                    <button class="border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-white px-8 py-4 rounded-lg font-semibold transition-colors" onclick="showPage('skincare-tips')">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-charcoal text-center mb-12">Featured Products</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-soft-beige rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onclick="showProductDetail(productDatabase['vitamin-c-serum'])">
+                        <div class="aspect-square">
+                            <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Vitamin C Serum" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-charcoal mb-2">Vitamin C Brightening Serum</h3>
+                            <p class="text-warm-gray mb-4">Transform your skin with 20% L-Ascorbic Acid</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-charcoal">R899.99</span>
+                                <button class="bg-rust text-white px-4 py-2 rounded-lg hover:bg-burnt-sienna transition-colors">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-soft-beige rounded-lg overflow-hidden hover:shadow-lg transition-shadow" onclick="showProductDetail(productDatabase['hyaluronic-moisturizer'])">
+                        <div class="aspect-square">
+                            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Hyaluronic Moisturizer" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-charcoal mb-2">Hyaluronic Acid Moisturizer</h3>
+                            <p class="text-warm-gray mb-4">Deep hydration for all skin types</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-charcoal">R629.99</span>
+                                <button class="bg-rust text-white px-4 py-2 rounded-lg hover:bg-burnt-sienna transition-colors">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-soft-beige rounded-lg overflow-hidden hover:shadow-lg transition-shadow" onclick="showProductDetail(productDatabase['gentle-cleanser'])">
+                        <div class="aspect-square">
+                            <img src="image1.jpg" alt="Gentle Cleanser" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-charcoal mb-2">Gentle Foaming Cleanser</h3>
+                            <p class="text-warm-gray mb-4">Perfect daily cleanser for sensitive skin</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-charcoal">R449.99</span>
+                                <button class="bg-rust text-white px-4 py-2 rounded-lg hover:bg-burnt-sienna transition-colors">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="py-16 bg-soft-beige">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-charcoal text-center mb-12">Why Choose GlowCare?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-burnt-sienna rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Science-Backed</h3>
+                        <p class="text-warm-gray">All our products are formulated with clinically proven ingredients</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-burnt-sienna rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Cruelty-Free</h3>
+                        <p class="text-warm-gray">We never test on animals and use only ethical ingredients</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-burnt-sienna rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Expert Support</h3>
+                        <p class="text-warm-gray">Our skincare experts are here to help you achieve your goals</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PRODUCTS PAGE -->
+    <div id="products" class="page-section">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-4xl font-bold text-charcoal mb-8">Our Products</h1>
+            
+            <!-- Product Categories -->
+            <div class="flex flex-wrap gap-4 mb-8">
+                <button class="product-category-btn bg-burnt-sienna text-white px-6 py-2 rounded-lg" data-category="all" onclick="filterProducts('all')">All Products</button>
+                <button class="product-category-btn bg-soft-beige text-charcoal px-6 py-2 rounded-lg hover:bg-sandstone" data-category="serums" onclick="filterProducts('serums')">Serums</button>
+                <button class="product-category-btn bg-soft-beige text-charcoal px-6 py-2 rounded-lg hover:bg-sandstone" data-category="moisturizers" onclick="filterProducts('moisturizers')">Moisturizers</button>
+                <button class="product-category-btn bg-soft-beige text-charcoal px-6 py-2 rounded-lg hover:bg-sandstone" data-category="cleansers" onclick="filterProducts('cleansers')">Cleansers</button>
+                <button class="product-category-btn bg-soft-beige text-charcoal px-6 py-2 rounded-lg hover:bg-sandstone" data-category="sunscreen" onclick="filterProducts('sunscreen')">Sunscreen</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+                <!-- Serums -->
+                <div class="product-item bg-soft-beige rounded-lg overflow-hidden hover:shadow-lg transition-shadow" data-category="serums">
+                    <div class="aspect-square">
+                        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Vitamin C Serum" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Vitamin C Brightening Serum</h3>
+                        <p class="text-warm-gray mb-4">20% L-Ascorbic Acid for maximum potency</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-charcoal">R899.99</span>
+                            <button class="bg-rust text-white px-4 py-2 rounded-lg hover:bg-burnt-sienna transition-colors" onclick="showProductDetail(productDatabase['vitamin-c-serum'])">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item bg-soft-beige rounded-lg overflow-hidden hover:shadow-lg transition-shadow" data-category="serums">
+                    <div class="aspect-square">
+                        <img src="image2.jpg" alt="Retinol Serum" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Retinol Anti-Aging Serum</h3>
+                        <p class="text-warm-gray mb-4">Reduce fine lines and improve skin texture</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-charcoal">R1,079.99</span>
+                            <button class="bg-rust text-white px-4 py-2 rounded-lg hover:bg-burnt-sienna transition-colors" onclick="showProductDetail(productDatabase['retinol-serum'])">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Moisturizers -->
+                <div class="product-item bg-soft-beige rounded-lg overflow-hidden hover:shadow-lg transition-shadow" data-category="moisturizers">
+                    <div class="aspect-square">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Hyaluronic Moisturizer" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Hyaluronic Acid Moisturizer</h3>
+                        <p class="text-warm-gray mb-4">Deep hydration for all skin types</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-charcoal">R629.99</span>
+                            <button class="bg-rust text-white px-4 py-2 rounded-lg hover:bg-burnt-sienna transition-colors" onclick="showProductDetail(productDatabase['hyaluronic-moisturizer'])">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item bg-soft-beige rounded-lg overflow-hidden hover:shadow-lg transition-shadow" data-category="moisturizers">
+                    <div class="aspect-square">
+                        <img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Night Cream" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Retinol Night Cream</h3>
+                        <p class="text-warm-gray mb-4">Overnight repair and rejuvenation</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-charcoal">R1,079.99</span>
+                            <button class="bg-rust text-white px-4 py-2 rounded-lg hover:bg-burnt-sienna transition-colors" onclick="showProductDetail(productDatabase['night-cream'])">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cleansers -->
+                <div class="product-item bg-soft-beige rounded-lg overflow-hidden hover:shadow-lg transition-shadow" data-category="cleansers">
+                    <div class="aspect-square">
+                        <img src="image1.jpg" alt="Gentle Cleanser" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Gentle Foaming Cleanser</h3>
+                        <p class="text-warm-gray mb-4">Perfect daily cleanser for sensitive skin</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-charcoal">R449.99</span>
+                            <button class="bg-rust text-white px-4 py-2 rounded-lg hover:bg-burnt-sienna transition-colors" onclick="showProductDetail(productDatabase['gentle-cleanser'])">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sunscreen -->
+                <div class="product-item bg-soft-beige rounded-lg overflow-hidden hover:shadow-lg transition-shadow" data-category="sunscreen">
+                    <div class="aspect-square">
+                        <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sunscreen" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Daily Sunscreen SPF 50</h3>
+                        <p class="text-warm-gray mb-4">Broad spectrum protection with zinc oxide</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-charcoal">R521.99</span>
+                            <button class="bg-rust text-white px-4 py-2 rounded-lg hover:bg-burnt-sienna transition-colors" onclick="showProductDetail(productDatabase['daily-sunscreen'])">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SKINCARE TIPS PAGE -->
+    <div id="skincare-tips" class="page-section">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-4xl font-bold text-charcoal mb-8">Skincare Tips & Guides</h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content -->
+                <div class="lg:col-span-2 space-y-8">
+                    <article class="bg-soft-beige rounded-lg p-6">
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Morning Routine" class="w-full h-64 object-cover rounded-lg mb-4">
+                        <h2 class="text-2xl font-bold text-charcoal mb-4">The Perfect Morning Skincare Routine</h2>
+                        <p class="text-warm-gray mb-4">
+                            Start your day right with a skincare routine that protects and nourishes your skin. A good morning routine should cleanse, treat, moisturize, and protect.
+                        </p>
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="text-lg font-semibold text-charcoal mb-2">Step 1: Gentle Cleansing</h3>
+                                <p class="text-warm-gray">Use a gentle cleanser to remove overnight buildup without stripping your skin's natural oils.</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-charcoal mb-2">Step 2: Vitamin C Serum</h3>
+                                <p class="text-warm-gray">Apply a vitamin C serum to brighten skin and provide antioxidant protection against environmental damage.</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-charcoal mb-2">Step 3: Moisturize</h3>
+                                <p class="text-warm-gray">Lock in hydration with a moisturizer suitable for your skin type.</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-charcoal mb-2">Step 4: Sunscreen</h3>
+                                <p class="text-warm-gray">Never skip SPF! Apply broad-spectrum sunscreen as the final step in your morning routine.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="bg-soft-beige rounded-lg p-6">
+                        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Evening Routine" class="w-full h-64 object-cover rounded-lg mb-4">
+                        <h2 class="text-2xl font-bold text-charcoal mb-4">Evening Skincare: Repair and Restore</h2>
+                        <p class="text-warm-gray mb-4">
+                            Your evening routine is all about repair and restoration. This is when your skin does most of its healing work.
+                        </p>
+                        <ul class="space-y-2 text-warm-gray">
+                            <li>• Double cleanse to remove makeup and daily buildup</li>
+                            <li>• Apply treatment serums (retinol, peptides, etc.)</li>
+                            <li>• Use a nourishing night moisturizer</li>
+                            <li>• Don't forget your neck and décolletage</li>
+                        </ul>
+                    </article>
+
+                    <article class="bg-soft-beige rounded-lg p-6">
+                        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Skin Types" class="w-full h-64 object-cover rounded-lg mb-4">
+                        <h2 class="text-2xl font-bold text-charcoal mb-4">Understanding Your Skin Type</h2>
+                        <p class="text-warm-gray mb-4">
+                            Knowing your skin type is crucial for choosing the right products and creating an effective routine.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h3 class="font-semibold text-charcoal mb-2">Oily Skin</h3>
+                                <p class="text-warm-gray text-sm">Shiny appearance, enlarged pores, prone to acne</p>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-charcoal mb-2">Dry Skin</h3>
+                                <p class="text-warm-gray text-sm">Tight feeling, flaky patches, fine lines</p>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-charcoal mb-2">Combination Skin</h3>
+                                <p class="text-warm-gray text-sm">Oily T-zone, normal to dry cheeks</p>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-charcoal mb-2">Sensitive Skin</h3>
+                                <p class="text-warm-gray text-sm">Easily irritated, redness, burning sensation</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="space-y-6">
+                    <div class="bg-soft-beige rounded-lg p-6">
+                        <h3 class="text-xl font-bold text-charcoal mb-4">Quick Tips</h3>
+                        <ul class="space-y-3 text-warm-gray">
+                            <li class="flex items-start space-x-2">
+                                <span class="text-burnt-sienna">•</span>
+                                <span>Always patch test new products</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-burnt-sienna">•</span>
+                                <span>Introduce new products gradually</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-burnt-sienna">•</span>
+                                <span>Consistency is key for results</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-burnt-sienna">•</span>
+                                <span>Don't over-exfoliate your skin</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-burnt-sienna">•</span>
+                                <span>Hydration starts from within</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-soft-beige rounded-lg p-6">
+                        <h3 class="text-xl font-bold text-charcoal mb-4">Ingredient Spotlight</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-charcoal">Vitamin C</h4>
+                                <p class="text-warm-gray text-sm">Brightens skin and provides antioxidant protection</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-charcoal">Retinol</h4>
+                                <p class="text-warm-gray text-sm">Reduces fine lines and improves skin texture</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-charcoal">Hyaluronic Acid</h4>
+                                <p class="text-warm-gray text-sm">Provides intense hydration and plumps skin</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-charcoal">Niacinamide</h4>
+                                <p class="text-warm-gray text-sm">Minimizes pores and controls oil production</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page-section">
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-bold text-charcoal mb-8 text-center">About GlowCare</h1>
+                
+                <div class="bg-soft-beige rounded-lg p-8 mb-8">
+                    <img src="about2.jpg" alt="About Us" class="w-full h-64 object-cover rounded-lg mb-6">
+                    
+                    <h2 class="text-2xl font-bold text-charcoal mb-4">Our Story</h2>
+                    <p class="text-warm-gray mb-6 leading-relaxed">
+                        Founded in 2020, GlowCare was born from a simple belief: everyone deserves healthy, radiant skin. Our journey began when our founder, Dr. Sarah Chen, a dermatologist with over 15 years of experience, noticed a gap in the market for effective, science-backed skincare that was also accessible and affordable.
+                    </p>
+                    
+                    <p class="text-warm-gray mb-6 leading-relaxed">
+                        We partner with leading laboratories and skincare scientists to develop formulations that deliver real results. Every product in our line is carefully tested, refined, and perfected before it reaches your hands.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-soft-beige rounded-lg p-6">
+                        <h3 class="text-xl font-bold text-charcoal mb-4">Our Mission</h3>
+                        <p class="text-warm-gray">
+                            To democratize access to premium skincare by creating effective, science-backed products that help everyone achieve their healthiest, most radiant skin.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-soft-beige rounded-lg p-6">
+                        <h3 class="text-xl font-bold text-charcoal mb-4">Our Values</h3>
+                        <ul class="text-warm-gray space-y-2">
+                            <li>• Science-first approach</li>
+                            <li>• Cruelty-free testing</li>
+                            <li>• Sustainable packaging</li>
+                            <li>• Inclusive beauty</li>
+                            <li>• Transparent ingredients</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-soft-beige rounded-lg p-8">
+                    <h2 class="text-2xl font-bold text-charcoal mb-6 text-center">Meet Our Team</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Dr. Sarah Chen" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                            <h3 class="font-semibold text-charcoal">Dr. Sarah Chen</h3>
+                            <p class="text-warm-gray text-sm">Founder & Chief Dermatologist</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Michael Rodriguez" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                            <h3 class="font-semibold text-charcoal">Michael Rodriguez</h3>
+                            <p class="text-warm-gray text-sm">Head of Product Development</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="pfpf.jpg" alt="Emily Johnson" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                            <h3 class="font-semibold text-charcoal">Emily Johnson</h3>
+                            <p class="text-warm-gray text-sm">Customer Experience Director</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page-section">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-4xl font-bold text-charcoal mb-8 text-center">Contact Us</h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-soft-beige rounded-lg p-8">
+                    <h2 class="text-2xl font-bold text-charcoal mb-6">Get in Touch</h2>
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-charcoal font-medium mb-2">Full Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-sandstone rounded-lg focus:outline-none focus:ring-2 focus:ring-burnt-sienna">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-charcoal font-medium mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-sandstone rounded-lg focus:outline-none focus:ring-2 focus:ring-burnt-sienna">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-charcoal font-medium mb-2">Subject</label>
+                            <select id="subject" name="subject" class="w-full px-4 py-3 border border-sandstone rounded-lg focus:outline-none focus:ring-2 focus:ring-burnt-sienna">
+                                <option value="">Select a subject</option>
+                                <option value="product-inquiry">Product Inquiry</option>
+                                <option value="order-support">Order Support</option>
+                                <option value="skincare-advice">Skincare Advice</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-charcoal font-medium mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-sandstone rounded-lg focus:outline-none focus:ring-2 focus:ring-burnt-sienna"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-rust hover:bg-burnt-sienna text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <div class="bg-soft-beige rounded-lg p-8">
+                        <h2 class="text-2xl font-bold text-charcoal mb-6">Contact Information</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-burnt-sienna rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-charcoal">Email</h3>
+                                    <p class="text-warm-gray">hello@glowcare.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-burnt-sienna rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-charcoal">Phone</h3>
+                                    <p class="text-warm-gray">+27 11 123 4567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-burnt-sienna rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-charcoal">Address</h3>
+                                    <p class="text-warm-gray">123 Beauty Lane<br>Sandton, Johannesburg 2196</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-soft-beige rounded-lg p-8">
+                        <h2 class="text-2xl font-bold text-charcoal mb-6">Business Hours</h2>
+                        <div class="space-y-2 text-warm-gray">
+                            <div class="flex justify-between">
+                                <span>Monday - Friday</span>
+                                <span>9:00 AM - 6:00 PM SAST</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Saturday</span>
+                                <span>10:00 AM - 4:00 PM SAST</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Sunday</span>
+                                <span>Closed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-soft-beige rounded-lg p-8">
+                        <h2 class="text-2xl font-bold text-charcoal mb-6">FAQ</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="font-semibold text-charcoal mb-2">How long does shipping take?</h3>
+                                <p class="text-warm-gray text-sm">Standard shipping takes 3-5 business days within South Africa. Express shipping is available for next-day delivery in major cities.</p>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-charcoal mb-2">What is your return policy?</h3>
+                                <p class="text-warm-gray text-sm">We offer a 30-day return policy for unopened products in original packaging.</p>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-charcoal mb-2">Do you offer skincare consultations?</h3>
+                                <p class="text-warm-gray text-sm">Yes! Our skincare experts offer free 15-minute consultations via video call.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH PAGE -->
+    <div id="search" class="page-section">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-4xl font-bold text-charcoal mb-8">Search Products</h1>
+            
+            <div class="max-w-2xl mx-auto mb-8">
+                <div class="relative">
+                    <input type="text" id="search-input" placeholder="Search for products, ingredients, or skin concerns..." class="w-full px-6 py-4 text-lg border border-sandstone rounded-lg focus:outline-none focus:ring-2 focus:ring-burnt-sienna">
+                    <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-gray hover:text-burnt-sienna">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div id="search-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center py-12">
+                    <svg class="w-16 h-16 text-warm-gray mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <p class="text-warm-gray">Start typing to search for products...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WISHLIST PAGE -->
+    <div id="wishlist" class="page-section">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-4xl font-bold text-charcoal mb-8">My Wishlist</h1>
+            
+            <div id="wishlist-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center py-12 col-span-full">
+                    <svg class="w-16 h-16 text-warm-gray mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    <p class="text-warm-gray">Your wishlist is empty. Start adding products you love!</p>
+                    <button class="mt-4 bg-rust text-white px-6 py-3 rounded-lg hover:bg-burnt-sienna transition-colors" onclick="showPage('products')">
+                        Browse Products
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART PAGE -->
+    <div id="cart" class="page-section">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-4xl font-bold text-charcoal mb-8">Shopping Cart</h1>
+            
+            <div id="cart-items" class="max-w-4xl mx-auto">
+                <div class="text-center py-12">
+                    <svg class="w-16 h-16 text-warm-gray mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01"></path>
+                    </svg>
+                    <p class="text-warm-gray mb-4">Your cart is empty</p>
+                    <button class="bg-rust text-white px-6 py-3 rounded-lg hover:bg-burnt-sienna transition-colors" onclick="showPage('products')">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL PAGE -->
+    <div id="product-detail" class="page-section">
+        <div class="container mx-auto px-4 py-8">
+            <button class="mb-6 text-burnt-sienna hover:text-rust transition-colors" onclick="showPage('products')">
+                ← Back to Products
+            </button>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Product Gallery -->
+                <div class="space-y-4">
+                    <div class="zoom-container aspect-square bg-soft-beige rounded-lg overflow-hidden">
+                        <img id="main-image" 
+                             src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Vitamin C Serum" 
+                             class="zoom-image w-full h-full object-cover">
+                    </div>
+                    
+                    <div class="grid grid-cols-4 gap-2">
+                        <button class="thumbnail active aspect-square rounded-lg overflow-hidden border-2 border-sandstone" onclick="changeImage(0)">
+                            <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Product 1" class="w-full h-full object-cover">
+                        </button>
+                        <button class="thumbnail aspect-square rounded-lg overflow-hidden border-2 border-sandstone" onclick="changeImage(1)">
+                            <img src="image1.jpg" alt="Product 2" class="w-full h-full object-cover">
+                        </button>
+                        <button class="thumbnail aspect-square rounded-lg overflow-hidden border-2 border-sandstone" onclick="changeImage(2)">
+                            <img src="image2.jpg" alt="Product 3" class="w-full h-full object-cover">
+                        </button>
+                        <button class="thumbnail aspect-square rounded-lg overflow-hidden border-2 border-sandstone" onclick="changeImage(3)">
+                            <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Product 4" class="w-full h-full object-cover">
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="space-y-6">
+                    <div>
+                        <div class="bg-soft-beige text-charcoal px-3 py-1 rounded-full text-sm font-medium inline-block mb-2">
+                            Premium Skincare
+                        </div>
+                        <h1 class="text-3xl font-bold text-charcoal mb-2">Vitamin C Brightening Serum</h1>
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="flex items-center space-x-1">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star">★</span>
+                                <span class="text-warm-gray ml-2">(247 reviews)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <span class="text-3xl font-bold text-charcoal">R899.99</span>
+                            <span class="text-xl text-warm-gray line-through">R1,259.99</span>
+                            <span class="bg-rust text-white px-3 py-1 rounded-full text-sm font-medium">Save R360</span>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-sandstone pt-6">
+                        <p class="text-warm-gray leading-relaxed">
+                            Transform your skin with our premium Vitamin C Brightening Serum. Formulated with 20% L-Ascorbic Acid, 
+                            this powerful antioxidant serum helps brighten skin tone, reduce dark spots, and boost collagen production 
+                            for a youthful, radiant complexion.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-lg font-semibold text-charcoal mb-3">Size</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="size-btn px-4 py-2 border border-sandstone rounded-lg text-charcoal hover:border-warm-gray transition-colors" data-size="15ml" onclick="selectSize(this)">15ml - Travel Size</button>
+                                <button class="size-btn px-4 py-2 border border-burnt-sienna bg-burnt-sienna text-white rounded-lg transition-colors" data-size="30ml" onclick="selectSize(this)">30ml - Regular</button>
+                                <button class="size-btn px-4 py-2 border border-sandstone rounded-lg text-charcoal hover:border-warm-gray transition-colors" data-size="50ml" onclick="selectSize(this)">50ml - Value Size</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold text-charcoal mb-3">Skin Type</h3>
+                            <div class="flex space-x-3">
+                                <button class="skin-type-btn px-4 py-2 border border-burnt-sienna bg-burnt-sienna text-white rounded-lg transition-colors" data-type="all" onclick="selectSkinType(this)">All Skin Types</button>
+                                <button class="skin-type-btn px-4 py-2 border border-sandstone text-charcoal hover:border-warm-gray rounded-lg transition-colors" data-type="sensitive" onclick="selectSkinType(this)">Sensitive</button>
+                                <button class="skin-type-btn px-4 py-2 border border-sandstone text-charcoal hover:border-warm-gray rounded-lg transition-colors" data-type="oily" onclick="selectSkinType(this)">Oily</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold text-charcoal mb-3">Quantity</h3>
+                            <div class="flex items-center space-x-3">
+                                <button id="decrease-qty" class="w-10 h-10 border border-sandstone rounded-lg flex items-center justify-center hover:border-warm-gray transition-colors">-</button>
+                                <span id="quantity" class="text-xl font-semibold text-charcoal w-12 text-center">1</span>
+                                <button id="increase-qty" class="w-10 h-10 border border-sandstone rounded-lg flex items-center justify-center hover:border-warm-gray transition-colors">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-6">
+                        <button id="add-to-cart" class="w-full bg-rust hover:bg-burnt-sienna text-white font-semibold py-4 px-6 rounded-lg transition-colors">
+                            Add to Cart - R899.99
+                        </button>
+                        <button class="w-full border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-white font-semibold py-4 px-6 rounded-lg transition-colors">
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <div class="border-t border-sandstone pt-6">
+                        <h3 class="text-lg font-semibold text-charcoal mb-3">Key Benefits</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center space-x-2 text-warm-gray">
+                                <svg class="w-5 h-5 text-burnt-sienna" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>20% L-Ascorbic Acid for maximum potency</span>
+                            </li>
+                            <li class="flex items-center space-x-2 text-warm-gray">
+                                <svg class="w-5 h-5 text-burnt-sienna" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Brightens skin tone and reduces dark spots</span>
+                            </li>
+                            <li class="flex items-center space-x-2 text-warm-gray">
+                                <svg class="w-5 h-5 text-burnt-sienna" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Stimulates collagen production</span>
+                            </li>
+                            <li class="flex items-center space-x-2 text-warm-gray">
+                                <svg class="w-5 h-5 text-burnt-sienna" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Antioxidant protection against free radicals</span>
+                            </li>
+                            <li class="flex items-center space-x-2 text-warm-gray">
+                                <svg class="w-5 h-5 text-burnt-sienna" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Suitable for all skin types</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Information Tabs -->
+            <div class="bg-soft-beige rounded-lg p-6 mb-12">
+                <div class="border-b border-sandstone mb-6">
+                    <nav class="flex space-x-8">
+                        <button class="tab-btn py-4 px-2 border-b-2 border-burnt-sienna text-burnt-sienna font-medium text-sm" data-tab="description" onclick="switchTab('description')">Description</button>
+                        <button class="tab-btn py-4 px-2 border-b-2 border-transparent text-warm-gray hover:text-charcoal font-medium text-sm" data-tab="ingredients" onclick="switchTab('ingredients')">Ingredients</button>
+                        <button class="tab-btn py-4 px-2 border-b-2 border-transparent text-warm-gray hover:text-charcoal font-medium text-sm" data-tab="usage" onclick="switchTab('usage')">How to Use</button>
+                        <button class="tab-btn py-4 px-2 border-b-2 border-transparent text-warm-gray hover:text-charcoal font-medium text-sm" data-tab="reviews" onclick="switchTab('reviews')">Reviews</button>
+                    </nav>
+                </div>
+
+                <div class="min-h-[300px]">
+                    <div id="description" class="tab-content active space-y-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-charcoal mb-4">Product Description</h3>
+                            <p class="text-warm-gray leading-relaxed mb-6">
+                                Our Vitamin C Brightening Serum is a powerful anti-aging treatment that delivers visible results in just 2-4 weeks. 
+                                Formulated with the highest quality L-Ascorbic Acid, this serum penetrates deep into the skin to target hyperpigmentation, 
+                                fine lines, and dullness at the cellular level.
+                            </p>
+                            <p class="text-warm-gray leading-relaxed">
+                                The lightweight, fast-absorbing formula is enhanced with Vitamin E and Ferulic Acid to stabilize the Vitamin C 
+                                and maximize its effectiveness. Perfect for morning use under sunscreen or evening application as part of your 
+                                nighttime routine.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="ingredients" class="tab-content space-y-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Full Ingredients List</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-charcoal mb-3">Active Ingredients</h4>
+                                <ul class="space-y-2 text-warm-gray">
+                                    <li><strong>L-Ascorbic Acid (20%)</strong> - Pure Vitamin C for brightening</li>
+                                    <li><strong>Vitamin E (0.5%)</strong> - Antioxidant protection</li>
+                                    <li><strong>Ferulic Acid (0.5%)</strong> - Stabilizes Vitamin C</li>
+                                    <li><strong>Hyaluronic Acid</strong> - Deep hydration</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-charcoal mb-3">Supporting Ingredients</h4>
+                                <ul class="space-y-2 text-warm-gray">
+                                    <li>Purified Water, Propylene Glycol</li>
+                                    <li>Sodium Hydroxide (pH adjuster)</li>
+                                    <li>Disodium EDTA (stabilizer)</li>
+                                    <li>Phenoxyethanol (preservative)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="usage" class="tab-content space-y-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">How to Use</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-burnt-sienna text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">1</div>
+                                <div>
+                                    <h4 class="font-semibold text-charcoal">Cleanse</h4>
+                                    <p class="text-warm-gray">Start with clean, dry skin. Use your favorite gentle cleanser.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-burnt-sienna text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">2</div>
+                                <div>
+                                    <h4 class="font-semibold text-charcoal">Apply Serum</h4>
+                                    <p class="text-warm-gray">Apply 2-3 drops to face and neck. Gently pat until absorbed.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-burnt-sienna text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">3</div>
+                                <div>
+                                    <h4 class="font-semibold text-charcoal">Moisturize</h4>
+                                    <p class="text-warm-gray">Follow with your favorite moisturizer to lock in hydration.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-burnt-sienna text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">4</div>
+                                <div>
+                                    <h4 class="font-semibold text-charcoal">Protect</h4>
+                                    <p class="text-warm-gray">Always apply SPF 30+ sunscreen during the day when using this product.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="reviews" class="tab-content space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-semibold text-charcoal">Customer Reviews</h3>
+                            <button class="bg-burnt-sienna text-white px-4 py-2 rounded-lg hover:bg-rust transition-colors">Write a Review</button>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="border-b border-sandstone pb-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center space-x-3">
+                                        <h4 class="font-semibold text-charcoal">Sarah M.</h4>
+                                        <div class="flex items-center space-x-1">
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-warm-gray text-sm">2 weeks ago</span>
+                                </div>
+                                <p class="text-warm-gray leading-relaxed">
+                                    "This serum is absolutely amazing! I've been using it for 3 weeks now and my skin looks so much brighter. 
+                                    The dark spots from old acne are fading and my overall complexion is more even. Worth every penny!"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white mt-16">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">GlowCare</h3>
+                    <p class="text-gray-300 mb-4">
+                        Premium skincare solutions for healthy, radiant skin. Science-backed formulations for visible results.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-burnt-sienna transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-burnt-sienna transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-burnt-sienna transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Shop</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-burnt-sienna transition-colors" onclick="showPage('products')">Serums</a></li>
+                        <li><a href="#" class="hover:text-burnt-sienna transition-colors" onclick="showPage('products')">Moisturizers</a></li>
+                        <li><a href="#" class="hover:text-burnt-sienna transition-colors" onclick="showPage('products')">Cleansers</a></li>
+                        <li><a href="#" class="hover:text-burnt-sienna transition-colors" onclick="showPage('products')">Sunscreen</a></li>
+                        <li><a href="#" class="hover:text-burnt-sienna transition-colors" onclick="showPage('products')">Gift Sets</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-burnt-sienna transition-colors" onclick="showPage('contact')">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-burnt-sienna transition-colors" onclick="showPage('skincare-tips')">Skin Quiz</a></li>
+                        <li><a href="#" class="hover:text-burnt-sienna transition-colors" onclick="showPage('contact')">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-burnt-sienna transition-colors" onclick="showPage('contact')">Returns</a></li>
+                        <li><a href="#" class="hover:text-burnt-sienna transition-colors" onclick="showPage('contact')">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Get skincare tips and exclusive offers</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-3 py-2 bg-gray-700 text-white rounded-l-lg focus:outline-none focus:ring-2 focus:ring-burnt-sienna">
+                        <button class="bg-burnt-sienna hover:bg-rust px-4 py-2 rounded-r-lg transition-colors" onclick="subscribeNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 GlowCare. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        const productImages = [
+            "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+            "image2.jpg",
+            "image1.jpg",
+            "https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+        ];
+
+        let currentQuantity = 1;
+        let cartCount = 0;
+        let selectedSize = "30ml";
+        let selectedSkinType = "all";
+        let wishlistItems = [];
+        let cartItems = [];
+
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById(pageId).classList.add('fade-in');
+            
+            // Update navigation active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Find and activate the corresponding nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.textContent.toLowerCase().replace(' ', '-') === pageId || 
+                    (pageId === 'home' && link.textContent === 'Home') ||
+                    (pageId === 'products' && link.textContent === 'Products') ||
+                    (pageId === 'skincare-tips' && link.textContent === 'Skincare Tips') ||
+                    (pageId === 'about' && link.textContent === 'About') ||
+                    (pageId === 'contact' && link.textContent === 'Contact')) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Product detail page - updated to handle any product
+        function showProductDetail(productData = null) {
+            // Default product data if none provided
+            const defaultProduct = {
+                name: "Vitamin C Brightening Serum",
+                price: 899.99,
+                originalPrice: 1259.99,
+                rating: 4,
+                reviews: 247,
+                category: "Premium Skincare",
+                description: "Transform your skin with our premium Vitamin C Brightening Serum. Formulated with 20% L-Ascorbic Acid, this powerful antioxidant serum helps brighten skin tone, reduce dark spots, and boost collagen production for a youthful, radiant complexion.",
+                images: productImages,
+                sizes: ["15ml - Travel Size", "30ml - Regular", "50ml - Value Size"],
+                skinTypes: ["All Skin Types", "Sensitive", "Oily"],
+                benefits: [
+                    "20% L-Ascorbic Acid for maximum potency",
+                    "Brightens skin tone and reduces dark spots", 
+                    "Stimulates collagen production",
+                    "Antioxidant protection against free radicals",
+                    "Suitable for all skin types"
+                ]
+            };
+            
+            const product = productData || defaultProduct;
+            
+            // Update product detail page content
+            updateProductDetailPage(product);
+            showPage('product-detail');
+        }
+
+        // Function to update product detail page with product data
+        function updateProductDetailPage(product) {
+            // Update main product info
+            document.querySelector('#product-detail .bg-soft-beige.text-charcoal').textContent = product.category;
+            document.querySelector('#product-detail h1').textContent = product.name;
+            
+            // Update rating stars
+            const starsContainer = document.querySelector('#product-detail .flex.items-center.space-x-1');
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < 5; i++) {
+                const star = document.createElement('span');
+                star.className = i < product.rating ? 'star filled' : 'star';
+                star.textContent = '★';
+                starsContainer.appendChild(star);
+            }
+            starsContainer.innerHTML += `<span class="text-warm-gray ml-2">(${product.reviews} reviews)</span>`;
+            
+            // Update prices
+            document.querySelector('#product-detail .text-3xl.font-bold.text-charcoal').textContent = `R${product.price}`;
+            if (product.originalPrice && product.originalPrice > product.price) {
+                document.querySelector('#product-detail .text-xl.text-warm-gray.line-through').textContent = `R${product.originalPrice}`;
+                document.querySelector('#product-detail .bg-rust.text-white').textContent = `Save R${(product.originalPrice - product.price).toFixed(0)}`;
+            } else {
+                document.querySelector('#product-detail .text-xl.text-warm-gray.line-through').style.display = 'none';
+                document.querySelector('#product-detail .bg-rust.text-white').style.display = 'none';
+            }
+            
+            // Update description
+            document.querySelector('#product-detail .border-t.border-sandstone.pt-6 p').textContent = product.description;
+            
+            // Update main image
+            document.querySelector('#product-detail #main-image').src = product.images[0];
+            
+            // Update thumbnail images
+            const thumbnails = document.querySelectorAll('#product-detail .thumbnail img');
+            thumbnails.forEach((thumb, index) => {
+                if (product.images[index]) {
+                    thumb.src = product.images[index];
+                }
+            });
+            
+            // Update benefits list
+            const benefitsList = document.querySelector('#product-detail .border-t.border-sandstone.pt-6 ul');
+            benefitsList.innerHTML = product.benefits.map(benefit => `
+                <li class="flex items-center space-x-2 text-warm-gray">
+                    <svg class="w-5 h-5 text-burnt-sienna" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>${benefit}</span>
+                </li>
+            `).join('');
+            
+            // Update add to cart button
+            updateCartButton();
+        }
+
+        // Product database with ZAR prices
+        const productDatabase = {
+            'vitamin-c-serum': {
+                name: "Vitamin C Brightening Serum",
+                price: 899.99,
+                originalPrice: 1259.99,
+                rating: 4,
+                reviews: 247,
+                category: "Premium Skincare",
+                description: "Transform your skin with our premium Vitamin C Brightening Serum. Formulated with 20% L-Ascorbic Acid, this powerful antioxidant serum helps brighten skin tone, reduce dark spots, and boost collagen production for a youthful, radiant complexion.",
+                images: [
+                    "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "imahttps://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                ],
+                sizes: ["15ml - Travel Size", "30ml - Regular", "50ml - Value Size"],
+                skinTypes: ["All Skin Types", "Sensitive", "Oily"],
+                benefits: [
+                    "20% L-Ascorbic Acid for maximum potency",
+                    "Brightens skin tone and reduces dark spots",
+                    "Stimulates collagen production",
+                    "Antioxidant protection against free radicals",
+                    "Suitable for all skin types"
+                ]
+            },
+            'retinol-serum': {
+                name: "Retinol Anti-Aging Serum",
+                price: 1079.99,
+                originalPrice: 1439.99,
+                rating: 5,
+                reviews: 189,
+                category: "Anti-Aging",
+                description: "Our powerful Retinol Anti-Aging Serum helps reduce fine lines, wrinkles, and improve skin texture. Formulated with 0.5% pure retinol and soothing botanicals to minimize irritation while maximizing results.",
+                images: [
+                    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1612817288484-6f916006741a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                ],
+                sizes: ["15ml - Travel Size", "30ml - Regular"],
+                skinTypes: ["Normal", "Dry", "Combination"],
+                benefits: [
+                    "0.5% pure retinol for proven anti-aging results",
+                    "Reduces fine lines and wrinkles",
+                    "Improves skin texture and tone",
+                    "Stimulates cellular turnover",
+                    "Enhanced with soothing botanicals"
+                ]
+            },
+            'hyaluronic-moisturizer': {
+                name: "Hyaluronic Acid Moisturizer",
+                price: 629.99,
+                originalPrice: 809.99,
+                rating: 4,
+                reviews: 312,
+                category: "Hydration",
+                description: "Deeply hydrate your skin with our Hyaluronic Acid Moisturizer. This lightweight yet nourishing formula contains multiple molecular weights of hyaluronic acid to provide both immediate and long-lasting hydration.",
+                images: [
+                    "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                ],
+                sizes: ["30ml - Travel Size", "50ml - Regular", "100ml - Value Size"],
+                skinTypes: ["All Skin Types", "Dry", "Sensitive"],
+                benefits: [
+                    "Multiple molecular weights of hyaluronic acid",
+                    "Provides immediate and long-lasting hydration",
+                    "Lightweight, non-greasy formula",
+                    "Suitable for all skin types",
+                    "Helps plump and smooth skin"
+                ]
+            },
+            'night-cream': {
+                name: "Retinol Night Cream",
+                price: 1079.99,
+                originalPrice: 1439.99,
+                rating: 4,
+                reviews: 156,
+                category: "Night Care",
+                description: "Repair and rejuvenate your skin overnight with our Retinol Night Cream. This rich, nourishing formula combines retinol with peptides and ceramides for maximum anti-aging benefits while you sleep.",
+                images: [
+                    "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                ],
+                sizes: ["30ml - Regular", "50ml - Value Size"],
+                skinTypes: ["Normal", "Dry", "Mature"],
+                benefits: [
+                    "Retinol for overnight skin renewal",
+                    "Peptides to boost collagen production",
+                    "Ceramides for barrier repair",
+                    "Rich, nourishing night formula",
+                    "Reduces signs of aging while you sleep"
+                ]
+            },
+            'gentle-cleanser': {
+                name: "Gentle Foaming Cleanser",
+                price: 449.99,
+                originalPrice: 539.99,
+                rating: 5,
+                reviews: 428,
+                category: "Cleansing",
+                description: "Start your routine with our Gentle Foaming Cleanser. This pH-balanced formula effectively removes makeup, dirt, and impurities without stripping your skin's natural moisture barrier.",
+                images: [
+                    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                ],
+                sizes: ["100ml - Travel Size", "200ml - Regular", "400ml - Value Size"],
+                skinTypes: ["All Skin Types", "Sensitive", "Dry"],
+                benefits: [
+                    "pH-balanced gentle formula",
+                    "Removes makeup and impurities",
+                    "Maintains skin's moisture barrier",
+                    "Suitable for sensitive skin",
+                    "Creates a rich, creamy foam"
+                ]
+            },
+            'daily-sunscreen': {
+                name: "Daily Sunscreen SPF 50",
+                price: 521.99,
+                originalPrice: 647.99,
+                rating: 4,
+                reviews: 267,
+                category: "Sun Protection",
+                description: "Protect your skin daily with our broad-spectrum SPF 50 sunscreen. This lightweight, non-greasy formula provides superior protection against UVA and UVB rays while nourishing your skin.",
+                images: [
+                    "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                    "https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                ],
+                sizes: ["30ml - Travel Size", "50ml - Regular"],
+                skinTypes: ["All Skin Types", "Sensitive", "Oily"],
+                benefits: [
+                    "Broad-spectrum SPF 50 protection",
+                    "Lightweight, non-greasy formula",
+                    "Water-resistant for 80 minutes",
+                    "Contains antioxidants for added protection",
+                    "Perfect for daily use under makeup"
+                ]
+            }
+        };
+
+        // Image gallery functionality
+        function changeImage(index) {
+            const mainImage = document.getElementById('main-image');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            
+            if (mainImage) {
+                mainImage.src = productImages[index];
+                
+                thumbnails.forEach((thumb, i) => {
+                    if (i === index) {
+                        thumb.classList.add('active');
+                    } else {
+                        thumb.classList.remove('active');
+                    }
+                });
+            }
+        }
+
+        // Image zoom functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'main-image') {
+                e.target.classList.toggle('zoomed');
+            }
+        });
+
+        // Quantity controls
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'decrease-qty') {
+                if (currentQuantity > 1) {
+                    currentQuantity--;
+                    document.getElementById('quantity').textContent = currentQuantity;
+                    updateCartButton();
+                }
+            } else if (e.target.id === 'increase-qty') {
+                currentQuantity++;
+                document.getElementById('quantity').textContent = currentQuantity;
+                updateCartButton();
+            }
+        });
+
+        // Size selection
+        function selectSize(button) {
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('border-burnt-sienna', 'bg-burnt-sienna', 'text-white');
+                btn.classList.add('border-sandstone', 'text-charcoal');
+            });
+            
+            button.classList.remove('border-sandstone', 'text-charcoal');
+            button.classList.add('border-burnt-sienna', 'bg-burnt-sienna', 'text-white');
+            selectedSize = button.dataset.size;
+        }
+
+        // Skin type selection
+        function selectSkinType(button) {
+            document.querySelectorAll('.skin-type-btn').forEach(btn => {
+                btn.classList.remove('border-burnt-sienna', 'bg-burnt-sienna', 'text-white');
+                btn.classList.add('border-sandstone', 'text-charcoal');
+            });
+            
+            button.classList.remove('border-sandstone', 'text-charcoal');
+            button.classList.add('border-burnt-sienna', 'bg-burnt-sienna', 'text-white');
+            selectedSkinType = button.dataset.type;
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active state from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-burnt-sienna', 'text-burnt-sienna');
+                btn.classList.add('border-transparent', 'text-warm-gray');
+            });
+            
+            // Show selected tab content
+            const tabContent = document.getElementById(tabName);
+            if (tabContent) {
+                tabContent.classList.add('active');
+            }
+            
+            // Add active state to clicked tab button
+            const activeBtn = document.querySelector(`[data-tab="${tabName}"]`);
+            if (activeBtn) {
+                activeBtn.classList.remove('border-transparent', 'text-warm-gray');
+                activeBtn.classList.add('border-burnt-sienna', 'text-burnt-sienna');
+            }
+        }
+
+        // Update cart button text
+        function updateCartButton() {
+            const price = 899.99;
+            const total = (price * currentQuantity).toFixed(2);
+            const cartButton = document.getElementById('add-to-cart');
+            if (cartButton) {
+                cartButton.textContent = `Add to Cart - R${total}`;
+            }
+        }
+
+        // Add to cart functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'add-to-cart') {
+                cartCount += currentQuantity;
+                const cartCountElement = document.getElementById('cart-count');
+                cartCountElement.textContent = cartCount;
+                cartCountElement.classList.remove('hidden');
+                
+                // Add to cart items array
+                cartItems.push({
+                    name: 'Vitamin C Brightening Serum',
+                    size: selectedSize,
+                    skinType: selectedSkinType,
+                    quantity: currentQuantity,
+                    price: 899.99
+                });
+                
+                // Show success message
+                alert(`Added ${currentQuantity} Vitamin C Serum (${selectedSize}) to cart!`);
+                
+                // Reset quantity to 1
+                currentQuantity = 1;
+                document.getElementById('quantity').textContent = currentQuantity;
+                updateCartButton();
+                
+                updateCartPage();
+            }
+        });
+
+        // Product filtering
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-item');
+            const buttons = document.querySelectorAll('.product-category-btn');
+            
+            // Update button states
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-burnt-sienna', 'text-white');
+                btn.classList.add('bg-soft-beige', 'text-charcoal');
+            });
+            
+            const activeBtn = document.querySelector(`[data-category="${category}"]`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-soft-beige', 'text-charcoal');
+                activeBtn.classList.add('bg-burnt-sienna', 'text-white');
+            }
+            
+            // Filter products
+            products.forEach(product => {
+                if (category === 'all' || product.dataset.category === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Search functionality
+        document.addEventListener('input', function(e) {
+            if (e.target.id === 'search-input') {
+                const searchTerm = e.target.value.toLowerCase();
+                const resultsContainer = document.getElementById('search-results');
+                
+                if (searchTerm.length > 2) {
+                    // Simulate search results
+                    const mockResults = [
+                        { name: 'Vitamin C Brightening Serum', price: 899.99, image: productImages[0] },
+                        { name: 'Hyaluronic Acid Moisturizer', price: 629.99, image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+                        { name: 'Gentle Foaming Cleanser', price: 449.99, image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' }
+                    ];
+                    
+                    const filteredResults = mockResults.filter(product => 
+                        product.name.toLowerCase().includes(searchTerm)
+                    );
+                    
+                    resultsContainer.innerHTML = filteredResults.map(product => `
+                        <div class="bg-soft-beige rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                            <div class="aspect-square">
+                                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-charcoal mb-2">${product.name}</h3>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-2xl font-bold text-charcoal">R${product.price}</span>
+                                    <button class="bg-rust text-white px-4 py-2 rounded-lg hover:bg-burnt-sienna transition-colors">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    resultsContainer.innerHTML = `
+                        <div class="text-center py-12 col-span-full">
+                            <svg class="w-16 h-16 text-warm-gray mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                            <p class="text-warm-gray">Start typing to search for products...</p>
+                        </div>
+                    `;
+                }
+            }
+        });
+
+        // Contact form submission
+        document.addEventListener('submit', function(e) {
+            if (e.target.id === 'contact-form') {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const name = formData.get('name');
+                const email = formData.get('email');
+                const subject = formData.get('subject');
+                const message = formData.get('message');
+                
+                alert(`Thank you ${name}! Your message has been sent. We'll get back to you at ${email} soon.`);
+                e.target.reset();
+            }
+        });
+
+        // Newsletter subscription
+        function subscribeNewsletter() {
+            const emailInput = document.querySelector('footer input[type="email"]');
+            const email = emailInput.value;
+            
+            if (email) {
+                alert(`Thank you for subscribing with ${email}!`);
+                emailInput.value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        }
+
+        // Update cart page
+        function updateCartPage() {
+            const cartContainer = document.getElementById('cart-items');
+            
+            if (cartItems.length === 0) {
+                cartContainer.innerHTML = `
+                    <div class="text-center py-12">
+                        <svg class="w-16 h-16 text-warm-gray mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01"></path>
+                        </svg>
+                        <p class="text-warm-gray mb-4">Your cart is empty</p>
+                        <button class="bg-rust text-white px-6 py-3 rounded-lg hover:bg-burnt-sienna transition-colors" onclick="showPage('products')">
+                            Continue Shopping
+                        </button>
+                    </div>
+                `;
+            } else {
+                const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                cartContainer.innerHTML = `
+                    <div class="space-y-6">
+                        ${cartItems.map((item, index) => `
+                            <div class="bg-soft-beige rounded-lg p-6 flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <img src="${productImages[0]}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
+                                    <div>
+                                        <h3 class="font-semibold text-charcoal">${item.name}</h3>
+                                        <p class="text-warm-gray">Size: ${item.size} | Skin Type: ${item.skinType}</p>
+                                        <p class="text-warm-gray">Quantity: ${item.quantity}</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xl font-bold text-charcoal">R${(item.price * item.quantity).toFixed(2)}</p>
+                                    <button class="text-rust hover:text-burnt-sienna transition-colors" onclick="removeFromCart(${index})">Remove</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                        <div class="border-t border-sandstone pt-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <span class="text-2xl font-bold text-charcoal">Total: R${total.toFixed(2)}</span>
+                            </div>
+                            <button class="w-full bg-rust hover:bg-burnt-sienna text-white font-semibold py-4 px-6 rounded-lg transition-colors">
+                                Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Remove from cart
+        function removeFromCart(index) {
+            const removedItem = cartItems[index];
+            cartItems.splice(index, 1);
+            cartCount -= removedItem.quantity;
+            
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCount === 0) {
+                cartCountElement.classList.add('hidden');
+            } else {
+                cartCountElement.textContent = cartCount;
+            }
+            
+            updateCartPage();
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartButton();
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
+

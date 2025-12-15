@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/blue-logo.ico" type="image/x-icon">
+    <title>Flashcards - African Humanities University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'university-blue': '#1e40af',
+                        'university-light-blue': '#3b82f6',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .flip-card {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 dark:bg-gray-900">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-100 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="flex items-center">
+                            <div class="w-8 h-8 bg-university-blue rounded-sm flex items-center justify-center mr-3">
+                                <span class="text-white font-bold text-sm">AHU</span>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-semibold text-gray-900 dark:text-white">African Humanities</div>
+                                <div class="text-gray-600 dark:text-gray-300">University</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                        <a href="academics.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Academics</a>
+                        <a href="quiz.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Quiz</a>
+                        <a href="flashcards.html" class="text-university-blue px-3 py-2 text-sm font-medium">Flashcards</a>
+                        <a href="progress.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Progress</a>
+                        <a href="resources.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Resources</a>
+                        <a href="contact.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Dark Mode Toggle -->
+                <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Flashcards</h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300">Study with interactive flashcards</p>
+        </div>
+
+        <!-- Subject Selection -->
+        <div id="subjectSelection" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer subject-card" data-subject="vocabulary">
+                <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Vocabulary</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Essential vocabulary words and definitions</p>
+                <div class="text-sm text-gray-500 dark:text-gray-400">20 Cards</div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer subject-card" data-subject="formulas">
+                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Math Formulas</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Important mathematical formulas and equations</p>
+                <div class="text-sm text-gray-500 dark:text-gray-400">15 Cards</div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer subject-card" data-subject="history">
+                <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Historical Facts</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Key historical events and dates</p>
+                <div class="text-sm text-gray-500 dark:text-gray-400">18 Cards</div>
+            </div>
+        </div>
+
+        <!-- Flashcard Interface -->
+        <div id="flashcardInterface" class="hidden">
+            <div class="max-w-4xl mx-auto">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 id="flashcardTitle" class="text-2xl font-bold text-gray-900 dark:text-white"></h2>
+                        <p class="text-gray-600 dark:text-gray-300">Card <span id="currentCard">1</span> of <span id="totalCards">20</span></p>
+                    </div>
+                    <button id="backToSubjects" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                        Back to Subjects
+                    </button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-8">
+                    <div id="cardProgress" class="bg-university-blue h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <!-- Flashcard -->
+                <div class="flip-card w-full h-96 mb-8" id="flashcard">
+                    <div class="flip-card-inner relative w-full h-full">
+                        <!-- Front -->
+                        <div class="flip-card-front absolute inset-0 bg-white dark:bg-gray-800 rounded-xl shadow-lg border-2 border-gray-200 dark:border-gray-600 flex items-center justify-center p-8 cursor-pointer">
+                            <div class="text-center">
+                                <div class="text-sm text-gray-500 dark:text-gray-400 mb-4">Question</div>
+                                <div id="cardFront" class="text-2xl font-semibold text-gray-900 dark:text-white"></div>
+                                <div class="mt-6 text-sm text-gray-500 dark:text-gray-400">Click to reveal answer</div>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back absolute inset-0 bg-university-blue rounded-xl shadow-lg flex items-center justify-center p-8 cursor-pointer">
+                            <div class="text-center">
+                                <div class="text-sm text-blue-200 mb-4">Answer</div>
+                                <div id="cardBack" class="text-2xl font-semibold text-white"></div>
+                                <div class="mt-6 text-sm text-blue-200">Click to see question</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex justify-between items-center">
+                    <button id="prevCard" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        Previous
+                    </button>
+                    
+                    <div class="flex space-x-4">
+                        <button id="shuffleCards" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                            Shuffle
+                        </button>
+                        <button id="resetCards" class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors">
+                            Reset
+                        </button>
+                    </div>
+                    
+                    <button id="nextCard" class="px-6 py-3 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Next
+                    </button>
+                </div>
+
+                <!-- Study Stats -->
+                <div class="mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Study Session</h3>
+                    <div class="grid grid-cols-3 gap-4 text-center">
+                        <div>
+                            <div class="text-2xl font-bold text-university-blue" id="cardsStudied">0</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Cards Studied</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-green-600" id="timeSpent">0:00</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Time Spent</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-purple-600" id="completionRate">0%</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Completion</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Flashcard Data
+        const flashcardData = {
+            vocabulary: {
+                title: "Vocabulary Flashcards",
+                cards: [
+                    { front: "Ubiquitous", back: "Present, appearing, or found everywhere" },
+                    { front: "Ephemeral", back: "Lasting for a very short time" },
+                    { front: "Serendipity", back: "The occurrence of events by chance in a happy way" },
+                    { front: "Eloquent", back: "Fluent or persuasive in speaking or writing" },
+                    { front: "Pragmatic", back: "Dealing with things sensibly and realistically" },
+                    { front: "Ambiguous", back: "Open to more than one interpretation; unclear" },
+                    { front: "Resilient", back: "Able to withstand or recover quickly from difficulties" },
+                    { front: "Meticulous", back: "Showing great attention to detail; very careful" },
+                    { front: "Innovative", back: "Featuring new methods; advanced and original" },
+                    { front: "Comprehensive", back: "Complete; including all or nearly all elements" },
+                    { front: "Paradigm", back: "A typical example or pattern of something" },
+                    { front: "Catalyst", back: "A person or thing that precipitates an event" },
+                    { front: "Synthesis", back: "The combination of components to form a whole" },
+                    { front: "Empirical", back: "Based on observation or experience rather than theory" },
+                    { front: "Hypothesis", back: "A supposition made as a starting point for investigation" },
+                    { front: "Methodology", back: "A system of methods used in a particular area of study" },
+                    { front: "Correlation", back: "A mutual relationship between two or more things" },
+                    { front: "Variable", back: "An element that is liable to vary or change" },
+                    { front: "Criterion", back: "A principle or standard by which something is judged" },
+                    { front: "Phenomenon", back: "A fact or situation that is observed to exist" }
+                ]
+            },
+            formulas: {
+                title: "Math Formulas",
+                cards: [
+                    { front: "Area of a Circle", back: "A = πr²" },
+                    { front: "Pythagorean Theorem", back: "a² + b² = c²" },
+                    { front: "Quadratic Formula", back: "x = (-b ± √(b²-4ac)) / 2a" },
+                    { front: "Distance Formula", back: "d = √((x₂-x₁)² + (y₂-y₁)²)" },
+                    { front: "Slope Formula", back: "m = (y₂-y₁) / (x₂-x₁)" },
+                    { front: "Area of Triangle", back: "A = ½bh" },
+                    { front: "Volume of Sphere", back: "V = (4/3)πr³" },
+                    { front: "Circumference of Circle", back: "C = 2πr" },
+                    { front: "Area of Rectangle", back: "A = lw" },
+                    { front: "Volume of Cylinder", back: "V = πr²h" },
+                    { front: "Sum of Arithmetic Series", back: "S = n(a₁ + aₙ)/2" },
+                    { front: "Compound Interest", back: "A = P(1 + r/n)^(nt)" },
+                    { front: "Law of Cosines", back: "c² = a² + b² - 2ab cos(C)" },
+                    { front: "Derivative of x^n", back: "d/dx(x^n) = nx^(n-1)" },
+                    { front: "Integration by Parts", back: "∫u dv = uv - ∫v du" }
+                ]
+            },
+            history: {
+                title: "Historical Facts",
+                cards: [
+                    { front: "When did World War II end?", back: "September 2, 1945" },
+                    { front: "Who was the first President of the USA?", back: "George Washington (1789-1797)" },
+                    { front: "When did the Berlin Wall fall?", back: "November 9, 1989" },
+                    { front: "What year did the Titanic sink?", back: "April 15, 1912" },
+                    { front: "When was the Declaration of Independence signed?", back: "July 4, 1776" },
+                    { front: "Who was the first person on the moon?", back: "Neil Armstrong (July 20, 1969)" },
+                    { front: "When did the Roman Empire fall?", back: "476 AD (Western Empire)" },
+                    { front: "What year did Columbus reach the Americas?", back: "1492" },
+                    { front: "When did the French Revolution begin?", back: "1789" },
+                    { front: "Who wrote the Communist Manifesto?", back: "Karl Marx and Friedrich Engels (1848)" },
+                    { front: "When did the American Civil War end?", back: "April 9, 1865" },
+                    { front: "What year was the United Nations founded?", back: "1945" },
+                    { front: "When did the Cold War end?", back: "1991" },
+                    { front: "Who was the longest-reigning British monarch?", back: "Queen Elizabeth II (70 years)" },
+                    { front: "When did the Industrial Revolution begin?", back: "Late 18th century (1760s)" },
+                    { front: "What year did the Great Depression start?", back: "1929" },
+                    { front: "When was the printing press invented?", back: "Around 1440 by Johannes Gutenberg" },
+                    { front: "What year did the Soviet Union dissolve?", back: "December 26, 1991" }
+                ]
+            }
+        };
+
+        // State
+        let currentSubject = null;
+        let currentCardIndex = 0;
+        let studyStartTime = null;
+        let studiedCards = new Set();
+        let timeInterval = null;
+
+        // DOM Elements
+        const subjectSelection = document.getElementById('subjectSelection');
+        const flashcardInterface = document.getElementById('flashcardInterface');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDarkMode();
+            setupEventListeners();
+        });
+
+        function initializeDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+
+            darkModeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            });
+        }
+
+        function setupEventListeners() {
+            // Subject selection
+            document.querySelectorAll('.subject-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const subject = this.dataset.subject;
+                    startFlashcards(subject);
+                });
+            });
+
+            // Navigation
+            document.getElementById('backToSubjects').addEventListener('click', showSubjectSelection);
+            document.getElementById('prevCard').addEventListener('click', previousCard);
+            document.getElementById('nextCard').addEventListener('click', nextCard);
+            document.getElementById('shuffleCards').addEventListener('click', shuffleCards);
+            document.getElementById('resetCards').addEventListener('click', resetStudySession);
+
+            // Flashcard flip
+            document.getElementById('flashcard').addEventListener('click', flipCard);
+        }
+
+        function startFlashcards(subject) {
+            currentSubject = flashcardData[subject];
+            currentCardIndex = 0;
+            studiedCards.clear();
+            studyStartTime = Date.now();
+
+            document.getElementById('flashcardTitle').textContent = currentSubject.title;
+            document.getElementById('totalCards').textContent = currentSubject.cards.length;
+
+            subjectSelection.classList.add('hidden');
+            flashcardInterface.classList.remove('hidden');
+
+            startTimer();
+            showCard();
+        }
+
+        function showCard() {
+            const card = currentSubject.cards[currentCardIndex];
+            
+            document.getElementById('currentCard').textContent = currentCardIndex + 1;
+            document.getElementById('cardFront').textContent = card.front;
+            document.getElementById('cardBack').textContent = card.back;
+
+            // Reset flip state
+            document.getElementById('flashcard').classList.remove('flipped');
+
+            // Update progress
+            const progress = ((currentCardIndex + 1) / currentSubject.cards.length) * 100;
+            document.getElementById('cardProgress').style.width = progress + '%';
+
+            // Update navigation buttons
+            document.getElementById('prevCard').disabled = currentCardIndex === 0;
+            
+            // Update stats
+            studiedCards.add(currentCardIndex);
+            updateStats();
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            if (currentCardIndex < currentSubject.cards.length - 1) {
+                currentCardIndex++;
+                showCard();
+            }
+        }
+
+        function previousCard() {
+            if (currentCardIndex > 0) {
+                currentCardIndex--;
+                showCard();
+            }
+        }
+
+        function shuffleCards() {
+            // Fisher-Yates shuffle
+            for (let i = currentSubject.cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentSubject.cards[i], currentSubject.cards[j]] = [currentSubject.cards[j], currentSubject.cards[i]];
+            }
+            currentCardIndex = 0;
+            showCard();
+        }
+
+        function resetStudySession() {
+            currentCardIndex = 0;
+            studiedCards.clear();
+            studyStartTime = Date.now();
+            showCard();
+        }
+
+        function startTimer() {
+            if (timeInterval) clearInterval(timeInterval);
+            
+            timeInterval = setInterval(function() {
+                updateStats();
+            }, 1000);
+        }
+
+        function updateStats() {
+            document.getElementById('cardsStudied').textContent = studiedCards.size;
+            
+            if (studyStartTime) {
+                const timeSpent = Math.floor((Date.now() - studyStartTime) / 1000);
+                const minutes = Math.floor(timeSpent / 60);
+                const seconds = timeSpent % 60;
+                document.getElementById('timeSpent').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            const completion = Math.round((studiedCards.size / currentSubject.cards.length) * 100);
+            document.getElementById('completionRate').textContent = completion + '%';
+        }
+
+        function showSubjectSelection() {
+            if (timeInterval) clearInterval(timeInterval);
+            flashcardInterface.classList.add('hidden');
+            subjectSelection.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

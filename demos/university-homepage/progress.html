@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/blue-logo.ico" type="image/x-icon">
+    <title>Progress Tracker - African Humanities University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'university-blue': '#1e40af',
+                        'university-light-blue': '#3b82f6',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans bg-white dark:bg-gray-900 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-100 dark:border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-university-blue rounded-sm flex items-center justify-center mr-3">
+                                <span class="text-white font-bold text-sm">AHU</span>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-semibold text-gray-900 dark:text-white">African Humanities</div>
+                                <div class="text-gray-600 dark:text-gray-300">University</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                        <a href="academics.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Academics</a>
+                        <a href="quiz.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Quiz</a>
+                        <a href="flashcards.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Flashcards</a>
+                        <a href="progress.html" class="text-university-blue font-medium px-3 py-2 text-sm transition-colors">Progress</a>
+                        <a href="resources.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Resources</a>
+                        <a href="contact.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="md:hidden">
+                        <button type="button" id="mobileMenuBtn" class="bg-white dark:bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="md:hidden hidden" id="mobileMenu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+                <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Home</a>
+                <a href="academics.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Academics</a>
+                <a href="quiz.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Quiz</a>
+                <a href="flashcards.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Flashcards</a>
+                <a href="progress.html" class="text-university-blue block px-3 py-2 text-base font-medium">Progress</a>
+                <a href="resources.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Resources</a>
+                <a href="contact.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="bg-gradient-to-r from-purple-600 to-purple-700 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Progress Tracker</h1>
+                <p class="text-xl text-purple-100 max-w-3xl mx-auto">Track your learning journey and see how far you've come.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overall Progress -->
+    <section class="py-16 bg-white dark:bg-gray-900">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Overall Progress</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-university-blue mb-2" id="overallProgress">0%</div>
+                        <div class="text-gray-600 dark:text-gray-400">Total Completion</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-600 mb-2" id="completedLessons">0</div>
+                        <div class="text-gray-600 dark:text-gray-400">Lessons Completed</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600 mb-2" id="totalLessons">0</div>
+                        <div class="text-gray-600 dark:text-gray-400">Total Lessons</div>
+                    </div>
+                </div>
+
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mb-4">
+                    <div id="overallProgressBar" class="bg-gradient-to-r from-university-blue to-purple-600 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                
+                <div class="flex justify-between">
+                    <button id="resetProgress" class="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors">
+                        Reset All Progress
+                    </button>
+                    <button id="exportProgress" class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                        Export Progress
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subject Progress -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Subject Progress</h2>
+            
+            <div id="subjectProgress" class="space-y-8">
+                <!-- Subject progress will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievement Badges -->
+    <section class="py-16 bg-white dark:bg-gray-900">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Achievements</h2>
+            
+            <div id="achievements" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Achievement badges will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script src="js/progress.js"></script>
+</body>
+</html>

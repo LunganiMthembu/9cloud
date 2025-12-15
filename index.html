@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="public/images/white-logo.ico" type="image/x-icon">
+    <title>9cloud. | Student Devs Building for the Real World</title>
+    <meta name="description" content="9cloud is a student-led web development team building modern websites and applications.">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'accent-light': '#3b82f6', /* Brighter blue */
+                        'accent-dark': '#2563eb', /* Deeper blue */
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'typing': 'typing 3.5s steps(40, end), blink-caret .75s step-end infinite',
+                        'wave': 'wave 10s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        typing: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' },
+                        },
+                        'blink-caret': {
+                            'from, to': { borderColor: 'transparent' },
+                            '50%': { borderColor: 'currentColor' },
+                        },
+                        wave: {
+                            '0%': { transform: 'translateX(0) translateY(0)' },
+                            '25%': { transform: 'translateX(15px) translateY(-15px)' },
+                            '50%': { transform: 'translateX(0) translateY(0)' },
+                            '75%': { transform: 'translateX(-15px) translateY(15px)' },
+                            '100%': { transform: 'translateX(0) translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Typing animation container */
+        .typing-container {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        /* Blob animation */
+        .blob {
+            border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+            animation: wave 10s ease-in-out infinite;
+        }
+        
+        /* Team member hover effect */
+        .team-member {
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover .team-member-bio {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .team-member-bio {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        /* Service card hover effect */
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Project card hover effect */
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Button hover effect */
+        .btn-hover {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-hover:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hover:hover:after {
+            left: 100%;
+        }
+
+        .filter-btn {
+            color: #6b7280;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            color: var(--accent-dark);
+        }
+
+        .filter-btn.active {
+            background-color: var(--accent-dark);
+            color: white;
+        }
+
+        .dark .filter-btn.active {
+            background-color: var(--accent-light);
+            color: var(--gray-900);
+        }
+        
+        /* Nav link hover effect */
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        /* Form input focus effect */
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Loading animation for lazy images */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.3; }
+        }
+        
+        .image-loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        /* Logo styling */
+        .logo-9 {
+            color: #3b82f6; /* Brighter blue for "9" */
+            font-weight: bold;
+        }
+
+        .logo-cloud {
+            color: inherit; /* Inherits from parent - white in dark mode, black in light */
+            font-weight: bold;
+        }
+
+        .logo-dot {
+            color: #3b82f6; /* Brighter blue for "." */
+            font-weight: bold;
+        }
+
+        /* User comments section */
+        .user-comment {
+            transition: all 0.3s ease;
+        }
+
+        .user-comment:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Header/Navigation -->
+    <header class="fixed w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm z-50 transition-all duration-300 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#home" class="text-2xl font-bold flex items-center">
+                <span class="logo-9">9</span><span class="logo-cloud">cloud</span><span class="logo-dot">.</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link hover:text-accent-dark dark:hover:text-accent-light">Home</a>
+                <a href="#about" class="nav-link hover:text-accent-dark dark:hover:text-accent-light">About</a>
+                <a href="#services" class="nav-link hover:text-accent-dark dark:hover:text-accent-light">Services</a>
+                <a href="#projects" class="nav-link hover:text-accent-dark dark:hover:text-accent-light">Projects</a>
+                <a href="#contact" class="nav-link hover:text-accent-dark dark:hover:text-accent-light">Contact</a>
+                
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i class="fa-solid fa-sun text-yellow-500 dark:hidden"></i>
+                    <i class="fa-solid fa-moon text-accent-light hidden dark:block"></i>
+                </button>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 shadow-md transition-all duration-300">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#home" class="py-2 hover:text-accent-dark dark:hover:text-accent-light">Home</a>
+                <a href="#about" class="py-2 hover:text-accent-dark dark:hover:text-accent-light">About</a>
+                <a href="#services" class="py-2 hover:text-accent-dark dark:hover:text-accent-light">Services</a>
+                <a href="#projects" class="py-2 hover:text-accent-dark dark:hover:text-accent-light">Projects</a>
+                <a href="#contact" class="py-2 hover:text-accent-dark dark:hover:text-accent-light">Contact</a>
+                
+                <!-- Theme Toggle Button (Mobile) -->
+                <div class="flex items-center">
+                    <span class="mr-2">Theme:</span>
+                    <button id="theme-toggle-mobile" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <i class="fa-solid fa-sun text-yellow-500 dark:hidden"></i>
+                        <i class="fa-solid fa-moon text-accent-light hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-20">
+        <div class="container mx-auto px-4 py-16 md:py-32">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="mb-6">
+                        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                            We Are <span class="logo-9">9</span><span class="logo-cloud">cloud</span><span class="logo-dot">.</span>
+                        </h1>
+                        <div class="typing-container text-xl md:text-2xl mb-6">
+                            Student Devs Building for the Real World
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-lg">
+                            A team of passionate student developers creating modern, responsive, and user-friendly websites for businesses, individuals, and organizations.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#projects" class="btn-hover px-6 py-3 border border-accent-dark dark:border-accent-light text-accent-dark dark:text-accent-light rounded-md font-medium hover:bg-accent-light dark:hover:bg-gray-800">
+                                View Our Work
+                            </a>
+                            <a href="#contact" class="btn-hover px-6 py-3 bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 rounded-md font-medium hover:shadow-lg">
+                                Let's Talk
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80">
+                        <!-- Animated Blob -->
+                        <div class="blob absolute inset-0 bg-gradient-to-br from-accent-light to-accent-dark dark:from-accent-dark dark:to-accent-light opacity-70"></div>
+                        <!-- Floating Elements -->
+                        <div class="absolute top-1/4 left-1/4 animate-float" style="animation-delay: 0s;">
+                            <i class="fa-brands fa-html5 text-4xl text-orange-500"></i>
+                        </div>
+                        <div class="absolute top-1/2 right-1/4 animate-float" style="animation-delay: 1s;">
+                            <i class="fa-brands fa-css3-alt text-4xl text-blue-500"></i>
+                        </div>
+                        <div class="absolute bottom-1/4 left-1/3 animate-float" style="animation-delay: 2s;">
+                            <i class="fa-brands fa-js text-4xl text-yellow-400"></i>
+                        </div>
+                        <div class="absolute top-1/3 right-1/3 animate-float" style="animation-delay: 3s;">
+                            <i class="fa-brands fa-react text-4xl text-cyan-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">About <span class="text-accent-dark dark:text-accent-light">Us</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                    Get to know the student developers behind 9cloud and our journey in web development.
+                </p>
+            </div>
+            
+            <!-- Who We Are Section -->
+            <div class="mb-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div data-aos="fade-right">
+                        <h3 class="text-2xl font-bold mb-6 border-b-2 border-accent-dark dark:border-accent-light pb-2 inline-block">Who We Are</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">
+                            At 9cloud, we're just getting started — founded in 2025, we're a fresh and ambitious team passionate about digital innovation. Though we're new on the scene, our mission is clear: to help businesses build a strong digital presence through creativity, smart design, and thoughtful strategy. As a growing collective of designers, developers, and thinkers, we're committed to delivering digital solutions that are not only visually impactful but also built to grow with our clients.
+                        </p>
+                    </div>
+                    <div class="relative" data-aos="fade-left">
+                        <img src="public/images/about.jpg" alt="9cloud Who We Are" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- What We Stand For Section -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold mb-10 text-center border-b-2 border-accent-dark dark:border-accent-light pb-2 inline-block" data-aos="fade-up">What We Stand For</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Innovation -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-16 h-16 rounded-full bg-accent-light/20 dark:bg-accent-dark/20 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fa-solid fa-lightbulb text-2xl text-accent-dark dark:text-accent-light"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 text-center">Innovation</h4>
+                        <p class="text-gray-600 dark:text-gray-300 text-center">
+                            We constantly push the boundaries of what's possible in digital design and development, embracing new technologies and methodologies to deliver cutting-edge solutions that keep our clients ahead of the curve.
+                        </p>
+                    </div>
+                    
+                    <!-- Precision in Design -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-16 h-16 rounded-full bg-accent-light/20 dark:bg-accent-dark/20 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fa-solid fa-check-circle text-2xl text-accent-dark dark:text-accent-light"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 text-center">Precision in Design</h4>
+                        <p class="text-gray-600 dark:text-gray-300 text-center">
+                            We approach every project with meticulous attention to detail, ensuring that every element serves a purpose and contributes to a cohesive, effective user experience that drives engagement and conversions.
+                        </p>
+                    </div>
+                    
+                    <!-- Strategic Thinking -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-16 h-16 rounded-full bg-accent-light/20 dark:bg-accent-dark/20 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fa-solid fa-book text-2xl text-accent-dark dark:text-accent-light"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 text-center">Strategic Thinking</h4>
+                        <p class="text-gray-600 dark:text-gray-300 text-center">
+                            Beyond just aesthetics, we create digital strategies. Our approach combines creative design with data-driven insights to develop solutions that not only look great but also achieve measurable business objectives.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mission and Vision Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <!-- Mission -->
+                <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-8" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-6 text-center">Our Mission</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        To transform businesses through innovative digital solutions that blend creativity with technical excellence, enabling our clients to thrive in an increasingly digital world.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-accent-dark dark:text-accent-light mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Create digital experiences that inspire and engage</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-accent-dark dark:text-accent-light mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Deliver solutions that drive measurable business growth</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-accent-dark dark:text-accent-light mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Build long-term partnerships based on trust and results</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-accent-dark dark:text-accent-light mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Stay at the forefront of digital innovation</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Vision -->
+                <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-8" data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-6 text-center">Our Vision</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        To be recognized as the leading tech-creative agency that consistently bridges the gap between artistic design and technical functionality, setting new standards in the digital industry.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-accent-dark dark:text-accent-light mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Pioneer new approaches to digital problem-solving</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-accent-dark dark:text-accent-light mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Cultivate a diverse team of creative and technical experts</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-accent-dark dark:text-accent-light mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Contribute to the evolution of digital design standards</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-accent-dark dark:text-accent-light mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Create a positive impact through our work</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-center mb-10" data-aos="fade-up">Meet The Team</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Team Member 1 -->
+                <div class="team-member bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-6 text-center">
+                        <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden bg-accent-light dark:bg-accent-dark flex items-center justify-center">
+                            <i class="fa-solid fa-user text-4xl text-white dark:text-gray-900"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-1">Phumlani Zikhali</h4>
+                        <p class="text-accent-dark dark:text-accent-light mb-4">Frontend Developer</p>
+                        <div class="team-member-bio">
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                Passionate about creating beautiful user interfaces with a focus on accessibility and user experience.
+                            </p>
+                            <div class="flex justify-center space-x-3">
+                                <i class="fa-brands fa-html5 text-xl text-orange-500"></i>
+                                <i class="fa-brands fa-css3-alt text-xl text-blue-500"></i>
+                                <i class="fa-brands fa-js text-xl text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="team-member bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-6 text-center">
+                        <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden bg-accent-light dark:bg-accent-dark flex items-center justify-center">
+                            <i class="fa-solid fa-user text-4xl text-white dark:text-gray-900"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-1">Luthando Mthembu</h4>
+                        <p class="text-accent-dark dark:text-accent-light mb-4">UI/UX Designer</p>
+                        <div class="team-member-bio">
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                Creative designer with an eye for detail and a love for creating intuitive user experiences.
+                            </p>
+                            <div class="flex justify-center space-x-3">
+                                <i class="fa-solid fa-palette text-xl text-pink-500"></i>
+                                <i class="fa-solid fa-pen-ruler text-xl text-purple-500"></i>
+                                <i class="fa-solid fa-object-group text-xl text-indigo-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="team-member bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-6 text-center">
+                        <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden bg-accent-light dark:bg-accent-dark flex items-center justify-center">
+                            <i class="fa-solid fa-user text-4xl text-white dark:text-gray-900"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-1">Lungani Mthembu</h4>
+                        <p class="text-accent-dark dark:text-accent-light mb-4">Project Manager</p>
+                        <div class="team-member-bio">
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                Organized and detail-oriented, ensuring projects are delivered on time and exceed expectations.
+                            </p>
+                            <div class="flex justify-center space-x-3">
+                                <i class="fa-solid fa-tasks text-xl text-green-500"></i>
+                                <i class="fa-solid fa-chart-line text-xl text-blue-500"></i>
+                                <i class="fa-solid fa-users text-xl text-amber-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 4 -->
+                <div class="team-member bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <div class="p-6 text-center">
+                        <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden bg-accent-light dark:bg-accent-dark flex items-center justify-center">
+                            <i class="fa-solid fa-user text-4xl text-white dark:text-gray-900"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-1">Zethembiso Mthimkhulu</h4>
+                        <p class="text-accent-dark dark:text-accent-light mb-4">Sales Mananger</p>
+                        <div class="team-member-bio">
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                Specializes in driving revenue growth and building strong client relationships for sustained business success.
+                            </p>
+                            <div class="flex justify-center space-x-3">
+                                <i class="fa-solid fa-chart-line text-xl text-green-500"></i> <!-- Performance/Growth -->
+                                <i class="fa-solid fa-user-tie text-xl text-blue-500"></i>    <!-- Professional Role -->
+                                <i class="fa-solid fa-handshake text-xl text-indigo-500"></i> <!-- Client Relations -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our <span class="text-accent-dark dark:text-accent-light">Services</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                    We offer a range of web development services tailored to meet your needs.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-6">
+                        <div class="w-16 h-16 rounded-full bg-accent-light/20 dark:bg-gray-800 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fa-solid fa-globe text-2xl text-accent-dark dark:text-accent-light"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-center">Static Websites</h3>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300 mb-6">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Fast-loading, responsive pages</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>SEO optimization</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Modern design principles</span>
+                            </li>
+                        </ul>
+                        <div class="border-t pt-4">
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2"><strong>Tools:</strong> HTML, CSS, JavaScript, Tailwind</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400"><strong>Ideal for:</strong> Small businesses, informational sites</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-6">
+                        <div class="w-16 h-16 rounded-full bg-accent-light/20 dark:bg-gray-800 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fa-solid fa-id-card text-2xl text-accent-dark dark:text-accent-light"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-center">Personal/Portfolio Pages</h3>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300 mb-6">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Showcase your work/skills</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Personal branding</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Contact forms & social links</span>
+                            </li>
+                        </ul>
+                        <div class="border-t pt-4">
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2"><strong>Tools:</strong> HTML, CSS, JavaScript, Tailwind</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400"><strong>Ideal for:</strong> Freelancers, job seekers, artists</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-6">
+                        <div class="w-16 h-16 rounded-full bg-accent-light/20 dark:bg-gray-800 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fa-solid fa-graduation-cap text-2xl text-accent-dark dark:text-accent-light"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-center">School Project Websites</h3>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300 mb-6">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Project showcases</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Educational resources</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Interactive elements</span>
+                            </li>
+                        </ul>
+                        <div class="border-t pt-4">
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2"><strong>Tools:</strong> HTML, CSS, JavaScript</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400"><strong>Ideal for:</strong> Students, educational institutions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <div class="p-6">
+                        <div class="w-16 h-16 rounded-full bg-accent-light/20 dark:bg-gray-800 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fa-solid fa-palette text-2xl text-accent-dark dark:text-accent-light"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-center">Graphic Design</h3>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300 mb-6">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Logo & brand identity design</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Social media graphics</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Video editing</span>
+                            </li>
+                        </ul>
+                        <div class="border-t pt-4">
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2"><strong>Tools:</strong> Adobe Illustrator, Photoshop, Canva, CapCut</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400"><strong>Ideal for:</strong> Businesses, content creators, marketers</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12" data-aos="fade-up">
+                <p class="text-lg font-medium text-accent-dark dark:text-accent-light">
+                    Backend services coming soon!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Our <span class="text-accent-dark dark:text-accent-light">Projects</span></h2>
+            <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                Check out some of our recent work in web development and graphic design.
+            </p>
+        </div>
+        
+        <!-- Filter Tabs -->
+        <div class="flex justify-center mb-12" data-aos="fade-up">
+            <div class="bg-white dark:bg-gray-900 rounded-lg p-1 shadow-md">
+                <button class="filter-btn active px-6 py-2 rounded-md font-medium transition-all" data-filter="all">All Projects</button>
+                <button class="filter-btn px-6 py-2 rounded-md font-medium transition-all" data-filter="web">Web Development</button>
+                <button class="filter-btn px-6 py-2 rounded-md font-medium transition-all" data-filter="design">Graphic Design</button>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+            <!-- Web Development Projects -->
+            <!-- Project 1 -->
+            <div class="project-card web bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                <div class="relative aspect-video bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                    <img 
+                        class="w-full h-full object-cover lazy-image" 
+                        src="public/images/cafe-shop.png" 
+                        data-src="public/images/cafe-shop.png" 
+                        alt="Cafe Shop Project"
+                    />
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Local Cafe Website</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        A responsive website for a fictional local cafe featuring menu, location, and online ordering.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">HTML</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">CSS</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">JavaScript</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Tailwind</span>
+                    </div>
+                    <a href="demos/cofee-shop/Café Lore.html" target="_blank" class="btn-hover inline-block px-4 py-2 bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 rounded-md font-medium hover:shadow-lg">
+                        View Demo
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="project-card web bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative aspect-video bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                    <img 
+                        class="w-full h-full object-cover lazy-image" 
+                        src="demos/GlowCare/glowcare.png" 
+                        data-src="demos/GlowCare/glowcare.png" 
+                        alt="Product Page"
+                    />
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Product Page</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        A clean, modern Product Page for designers to showcase their products with a focus on visuals.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">HTML</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">CSS</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">JavaScript</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Tailwind</span>
+                    </div>
+                    <a href="demos/GlowCare/GlowCare.html" target="_blank" class="btn-hover inline-block px-4 py-2 bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 rounded-md font-medium hover:shadow-lg">
+                        View Demo
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="project-card web bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                <div class="relative aspect-video bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                    <img 
+                        class="w-full h-full object-cover lazy-image" 
+                        src="public/images/educational.png" 
+                        data-src="public/images/educational.png" 
+                        alt="Educational Platform"
+                    />
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Educational Platform</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        An interactive educational platform for a university department with course information and resources.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">HTML</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">CSS</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">JavaScript</span>
+                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">GSAP</span>
+                    </div>
+                    <a href="demos/university-homepage/index.html" target="_blank" class="btn-hover inline-block px-4 py-2 bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 rounded-md font-medium hover:shadow-lg">
+                        View Demo
+                    </a>
+                </div>
+            </div>
+
+                <!-- Graphic Design Projects -->
+                <!-- Design Project 1 -->
+                <div class="project-card design bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative aspect-[3/4] bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                        <img 
+                            class="w-full h-full object-cover lazy-image cursor-pointer" 
+                            src="demos/posters/UEFA_Match_Poster.png" 
+                            data-src="demos/posters/UEFA_Match_Poster.png" 
+                            alt="Event Poster Design"
+                            onclick="openImageModal(this.src)"
+                        />
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                            <i class="fa-solid fa-expand text-white text-2xl opacity-0 hover:opacity-100 transition-opacity"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Event Poster Design</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Modern event poster design with vibrant colors and clean typography for a sport festival.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Photoshop</span>
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Illustrator</span>
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Typography</span>
+                        </div>
+                        <button onclick="openImageModal('demos/posters/UEFA_Event_Poster.png')" class="btn-hover inline-block px-4 py-2 bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 rounded-md font-medium hover:shadow-lg">
+                            View Full Size
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Design Project 2 -->
+                <div class="project-card design bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="500">
+                    <div class="relative aspect-[3/4] bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                        <img 
+                            class="w-full h-full object-cover lazy-image cursor-pointer" 
+                            src="public/images/poster2.jpg" 
+                            data-src="public/images/poster2.jpg" 
+                            alt="Brand Identity Design"
+                            onclick="openImageModal(this.src)"
+                        />
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                            <i class="fa-solid fa-expand text-white text-2xl opacity-0 hover:opacity-100 transition-opacity"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Brand Identity Package</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Complete brand identity design including logo, business cards, and marketing materials.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Illustrator</span>
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Branding</span>
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Print Design</span>
+                        </div>
+                        <button onclick="openImageModal('public/images/poster2.jpg')" class="btn-hover inline-block px-4 py-2 bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 rounded-md font-medium hover:shadow-lg">
+                            View Full Size
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Design Project 3 -->
+                <div class="project-card design bg-white dark:bg-gray-900 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="600">
+                    <div class="relative aspect-[3/4] bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                        <img 
+                            class="w-full h-full object-cover lazy-image cursor-pointer" 
+                            src="demos/posters/GustoGrill SM.png" 
+                            data-src="demos/posters/GustoGrill SM.png" 
+                            alt="Social Media Graphics"
+                            onclick="openImageModal(this.src)"
+                        />
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                            <i class="fa-solid fa-expand text-white text-2xl opacity-0 hover:opacity-100 transition-opacity"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Social Media Campaign</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Eye-catching social media graphics designed for Instagram and Facebook marketing campaigns.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Canva</span>
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Photoshop</span>
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium">Social Media</span>
+                        </div>
+                        <button onclick="openImageModal('demos/posters/GustoGrill SM - 1.png')" class="btn-hover inline-block px-4 py-2 bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 rounded-md font-medium hover:shadow-lg">
+                            View Full Size
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12" data-aos="fade-up">
+                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                    These are sample projects to demonstrate our capabilities in both web development and graphic design. We're ready to create something amazing for you!
+                </p>
+                <a href="#contact" class="btn-hover inline-block px-6 py-3 bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 rounded-md font-medium hover:shadow-lg">
+                    Start Your Project
+                </a>
+            </div>
+        </div>
+
+        <!-- Image Modal -->
+        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
+            <div class="relative max-w-4xl max-h-full">
+                <button onclick="closeImageModal()" class="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+                <img id="modalImage" src="/placeholder.svg" alt="" class="max-w-full max-h-full object-contain rounded-lg">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-800">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16" data-aos="fade-up">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In <span class="text-accent-dark dark:text-accent-light">Touch</span></h2>
+                        <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                            Have a project in mind? We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.
+                        </p>
+                    </div>
+                    
+                    <div class="max-w-4xl mx-auto">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div data-aos="fade-right">
+                                <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                                <div class="space-y-6">
+                                    <div class="flex items-start">
+                                        <div class="w-12 h-12 rounded-full bg-accent-light/20 dark:bg-gray-800 flex items-center justify-center mr-4">
+                                            <i class="fa-solid fa-envelope text-accent-dark dark:text-accent-light"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-lg font-medium mb-1">Email</h4>
+                                            <p class="text-gray-600 dark:text-gray-300">9cloud.agency@gmail.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-12 h-12 rounded-full bg-accent-light/20 dark:bg-gray-800 flex items-center justify-center mr-4">
+                                            <i class="fa-brands fa-whatsapp text-accent-dark dark:text-accent-light"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-lg font-medium mb-1">WhatsApp</h4>
+                                            <p class="text-gray-600 dark:text-gray-300">+27 (71) 991-2787</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-12 h-12 rounded-full bg-accent-light/20 dark:bg-gray-800 flex items-center justify-center mr-4">
+                                            <i class="fa-brands fa-instagram text-accent-dark dark:text-accent-light"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-lg font-medium mb-1">Instagram</h4>
+                                            <p class="text-gray-600 dark:text-gray-300">@9cloud.dev</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div data-aos="fade-left">
+                                <form id="contact-form" class="space-y-6"  action="https://api.web3forms.com/submit" method="POST">
+                                    <input type="hidden" name="access_key" value="9ad010d7-5c34-41e2-859d-8cb18014fb98">
+                                    <div>
+                                        <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                                        <input 
+                                            type="text" 
+                                            id="name" 
+                                            name="name" 
+                                            class="form-input w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            required
+                                        >
+                                        
+                                        <div class="error-message text-sm text-red-500 mt-1 hidden">Please enter your name</div>
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                                        <input 
+                                            type="email" 
+                                            id="email" 
+                                            name="email" 
+                                            class="form-input w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            required
+                                        >
+                                        <div class="error-message text-sm text-red-500 mt-1 hidden">Please enter a valid email address</div>
+                                    </div>
+                                    <div>
+                                        <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                                        <textarea 
+                                            id="message" 
+                                            name="message" 
+                                            rows="5" 
+                                            class="form-input w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            required
+                                        ></textarea>
+                                        <div class="error-message text-sm text-red-500 mt-1 hidden">Please enter your message</div>
+                                    </div>
+                                    <button 
+                                        type="submit" 
+                                        id="submit-button"
+                                        class="btn-hover w-full px-6 py-3 bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 rounded-md font-medium hover:shadow-lg transition-all duration-200"
+                                    >
+                                        Send Message
+                                    </button>
+                                </form>
+                                
+                                <!-- Success Message -->
+                                <div id="success-message" class="hidden mt-6 p-4 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 rounded-md">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-check-circle text-xl mr-2"></i>
+                                        <p>Your message has been sent successfully! We'll get back to you soon.</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Error Message -->
+                                <div id="error-message" class="hidden mt-6 p-4 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-100 rounded-md">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-exclamation-circle text-xl mr-2"></i>
+                                        <p id="error-text">There was an error sending your message. Please try again later.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+            <!-- Testimonials Section -->
+            <section id="testimonials" class="py-20 bg-gray-50 dark:bg-gray-800">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16" data-aos="fade-up">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Client <span class="text-accent-dark dark:text-accent-light">Testimonials</span></h2>
+                        <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                            What our clients say about working with us.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-md p-8 text-center" data-aos="fade-up">
+                        <div class="w-20 h-20 rounded-full bg-accent-light/20 dark:bg-gray-800 flex items-center justify-center mx-auto mb-6">
+                            <i class="fa-solid fa-quote-right text-2xl text-accent-dark dark:text-accent-light"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-6">Coming Soon!</h3>
+                        <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+                            We're just getting started at 9cloud, and we're excited to build our first collaborations. 
+                            If you'd like to work with a passionate, student-led team, get in touch — let's create something amazing together.
+                        </p>
+                <a href="#contact" class="btn-hover inline-block px-6 py-3 bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 rounded-md font-medium hover:shadow-lg">
+                    Be Our First Client
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <a href="#home" class="text-2xl font-bold flex items-center mb-4">
+                        <span class="logo-9">9</span><span class="logo-cloud">cloud</span><span class="logo-dot">.</span>
+                    </a>
+                    <p class="text-gray-400 mb-6 max-w-md">
+                        A student-led web development team creating modern, responsive, and user-friendly websites for businesses, individuals, and organizations.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/9clouddev" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-accent-dark transition-colors" title="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/9cloud.dev/" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-accent-dark transition-colors" title="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/9-cloud-77b562367" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-accent-dark transition-colors" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a></li>
+                        <li><a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-400">
+                            <i class="fa-solid fa-envelope mr-2 text-accent-light"></i>
+                            9cloud.agency@gmail.com
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fa-brands fa-whatsapp mr-2 text-accent-light"></i>
+                            +27 (71) 991-2787
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fa-brands fa-instagram mr-2 text-accent-light"></i>
+                            @9cloud.dev
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 9cloud. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-accent-dark dark:bg-accent-light text-white dark:text-gray-900 flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script>
+        // Project filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    projectCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = 'block';
+                        } else if (card.classList.contains(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+
+        // Image modal functions
+        function openImageModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+    </script>
+    
+    <!-- Main JavaScript -->
+    <script>
+        // Initialize AOS Animation
+        AOS.init({
+            once: true,
+            duration: 800,
+            easing: 'ease-out'
+        });
+        
+        // Theme Toggle Functionality
+        function setupThemeToggle() {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+            
+            // Check for saved theme preference or use device preference
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+            
+            function toggleTheme() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+            
+            themeToggleBtn.addEventListener('click', toggleTheme);
+            themeToggleMobileBtn.addEventListener('click', toggleTheme);
+        }
+        
+        // Mobile Menu Functionality
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when clicking on a link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+        
+        // Back to Top Button Functionality
+        function setupBackToTop() {
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'invisible');
+                    backToTopBtn.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopBtn.classList.remove('opacity-100', 'visible');
+                    backToTopBtn.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Lazy Loading Images
+        function setupLazyLoading() {
+            const lazyImages = document.querySelectorAll('.lazy-image');
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy-image');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(img => {
+                    imageObserver.observe(img);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                lazyImages.forEach(img => {
+                    img.src = img.dataset.src;
+                });
+            }
+        }
+        
+        // Contact Form Functionality - FIXED VERSION
+        function setupContactForm() {
+            const contactForm = document.getElementById('contact-form');
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+            const submitButton = document.getElementById('submit-button');
+            
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(contactForm);
+                const name = formData.get('name');
+                const email = formData.get('email');
+                const message = formData.get('message');
+                
+                // Validate form data
+                if (!name || !email || !message) {
+                    showError('All fields are required');
+                    return;
+                }
+                
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showError('Please enter a valid email address');
+                    return;
+                }
+                
+                // Show loading state
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Sending...';
+                
+                // Hide previous messages
+                successMessage.classList.add('hidden');
+                errorMessage.classList.add('hidden');
+                
+                try {
+                    // Submit to Web3Forms
+                    const response = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Show success message and reset form
+                        contactForm.reset();
+                        successMessage.classList.remove('hidden');
+                        
+                        // Hide success message after 5 seconds
+                        setTimeout(() => {
+                            successMessage.classList.add('hidden');
+                        }, 5000);
+                    } else {
+                        showError(result.message || 'Failed to send message. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Contact form submission error:', error);
+                    showError('Network error. Please check your connection and try again.');
+                } finally {
+                    // Reset button state
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Send Message';
+                }
+            });
+            
+            function showError(message) {
+                errorText.textContent = message;
+                errorMessage.classList.remove('hidden');
+                
+                // Hide error message after 5 seconds
+                setTimeout(() => {
+                    errorMessage.classList.add('hidden');
+                }, 5000);
+            }
+        }
+        
+        // Initialize all functionality when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setupThemeToggle();
+            setupMobileMenu();
+            setupBackToTop();
+            setupLazyLoading();
+            setupContactForm();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/blue-logo.ico" type="image/x-icon">
+    <title>Resources - African Humanities University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'university-blue': '#1e40af',
+                        'university-light-blue': '#3b82f6',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans bg-gray-50 dark:bg-gray-900">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-100 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="flex items-center">
+                            <div class="w-8 h-8 bg-university-blue rounded-sm flex items-center justify-center mr-3">
+                                <span class="text-white font-bold text-sm">AHU</span>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-semibold text-gray-900 dark:text-white">African Humanities</div>
+                                <div class="text-gray-600 dark:text-gray-300">University</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                        <a href="academics.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Academics</a>
+                        <a href="quiz.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Quiz</a>
+                        <a href="flashcards.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Flashcards</a>
+                        <a href="progress.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Progress</a>
+                        <a href="resources.html" class="text-university-blue px-3 py-2 text-sm font-medium">Resources</a>
+                        <a href="contact.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Dark Mode Toggle -->
+                <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Learning Resources</h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300">Download study materials, notes, and reference documents</p>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="mb-8 flex flex-col md:flex-row gap-4">
+            <div class="flex-1">
+                <input type="text" id="searchInput" placeholder="Search resources..." class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-university-blue focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+            </div>
+            <div class="flex gap-2">
+                <select id="categoryFilter" class="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-university-blue bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                    <option value="">All Categories</option>
+                    <option value="mathematics">Mathematics</option>
+                    <option value="science">Science</option>
+                    <option value="history">History</option>
+                    <option value="literature">Literature</option>
+                    <option value="general">General</option>
+                </select>
+                <select id="typeFilter" class="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-university-blue bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                    <option value="">All Types</option>
+                    <option value="notes">Notes</option>
+                    <option value="textbook">Textbook</option>
+                    <option value="worksheet">Worksheet</option>
+                    <option value="reference">Reference</option>
+                    <option value="syllabus">Syllabus</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Resource Categories -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Mathematics Resources -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-4">
+                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">Mathematics</h2>
+                </div>
+                
+                <div class="space-y-4" data-category="mathematics">
+                    <div class="resource-item border-b border-gray-200 dark:border-gray-600 pb-4" data-type="syllabus">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Calculus I Syllabus</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Complete course outline and requirements</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">2.1 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="calculus-syllabus.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="resource-item border-b border-gray-200 dark:border-gray-600 pb-4" data-type="notes">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Algebra Fundamentals</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Essential algebraic concepts and formulas</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">1.8 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="algebra-fundamentals.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="resource-item border-b border-gray-200 dark:border-gray-600 pb-4" data-type="worksheet">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Geometry Practice Problems</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">50 practice problems with solutions</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">3.2 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="geometry-practice.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="resource-item" data-type="reference">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Mathematical Formulas Reference</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Quick reference guide for common formulas</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">1.2 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="math-formulas.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Science Resources -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mr-4">
+                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">Science</h2>
+                </div>
+                
+                <div class="space-y-4" data-category="science">
+                    <div class="resource-item border-b border-gray-200 dark:border-gray-600 pb-4" data-type="textbook">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Physics Principles</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Comprehensive physics textbook chapters 1-10</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">15.7 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="physics-principles.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="resource-item border-b border-gray-200 dark:border-gray-600 pb-4" data-type="notes">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Chemistry Lab Manual</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Laboratory procedures and safety guidelines</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">4.3 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="chemistry-lab.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="resource-item border-b border-gray-200 dark:border-gray-600 pb-4" data-type="reference">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Periodic Table Reference</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Complete periodic table with element properties</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">2.1 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="periodic-table.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="resource-item" data-type="worksheet">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Biology Study Guide</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Cell structure and function study materials</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">3.8 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="biology-guide.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History & Literature Resources -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mr-4">
+                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">History & Literature</h2>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="resource-item border-b border-gray-200 dark:border-gray-600 pb-4" data-category="history" data-type="notes">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">World War II Timeline</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Comprehensive timeline of major events</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">2.7 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="wwii-timeline.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="resource-item border-b border-gray-200 dark:border-gray-600 pb-4" data-category="literature" data-type="textbook">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Shakespeare Analysis Guide</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Character and theme analysis for major plays</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">5.4 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="shakespeare-guide.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="resource-item border-b border-gray-200 dark:border-gray-600 pb-4" data-category="history" data-type="reference">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Ancient Civilizations Map</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Historical maps and civilization overview</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">8.1 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="ancient-civilizations.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="resource-item" data-category="general" data-type="reference">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Study Skills Handbook</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Effective study techniques and time management</p>
+                                <div class="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded">PDF</span>
+                                    <span class="ml-2">1.9 MB</span>
+                                </div>
+                            </div>
+                            <button class="download-btn ml-4 px-4 py-2 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors" data-file="study-skills.pdf">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Download Statistics -->
+        <div class="mt-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Download Statistics</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-university-blue" id="totalDownloads">0</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Total Downloads</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-600" id="todayDownloads">0</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Today</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-purple-600" id="popularResource">-</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Most Popular</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-orange-600" id="totalSize">0 MB</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Total Size</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Download Modal -->
+    <div id="downloadModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Download Started</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6" id="downloadMessage">Your file is being prepared for download...</p>
+                <button id="closeModal" class="px-6 py-3 bg-university-blue text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Resource management
+        let downloadStats = {
+            total: 0,
+            today: 0,
+            popular: {},
+            totalSize: 0
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDarkMode();
+            setupEventListeners();
+            loadDownloadStats();
+            updateStatsDisplay();
+        });
+
+        function initializeDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            }
+
+            darkModeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            });
+        }
+
+        function setupEventListeners() {
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', filterResources);
+            document.getElementById('categoryFilter').addEventListener('change', filterResources);
+            document.getElementById('typeFilter').addEventListener('change', filterResources);
+
+            // Download buttons
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const fileName = this.dataset.file;
+                    downloadFile(fileName, this);
+                });
+            });
+
+            // Modal close
+            document.getElementById('closeModal').addEventListener('click', closeDownloadModal);
+            document.getElementById('downloadModal').addEventListener('click', function(e) {
+                if (e.target === this) closeDownloadModal();
+            });
+        }
+
+        function filterResources() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
+
+            document.querySelectorAll('.resource-item').forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                const description = item.querySelector('p').textContent.toLowerCase();
+                const category = item.closest('[data-category]')?.dataset.category || item.dataset.category;
+                const type = item.dataset.type;
+
+                const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+                const matchesCategory = !categoryFilter || category === categoryFilter;
+                const matchesType = !typeFilter || type === typeFilter;
+
+                if (matchesSearch && matchesCategory && matchesType) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function downloadFile(fileName, button) {
+            // Simulate file download
+            const originalText = button.textContent;
+            button.textContent = 'Downloading...';
+            button.disabled = true;
+
+            // Update download stats
+            downloadStats.total++;
+            downloadStats.today++;
+            
+            if (downloadStats.popular[fileName]) {
+                downloadStats.popular[fileName]++;
+            } else {
+                downloadStats.popular[fileName] = 1;
+            }
+
+            // Simulate file size (random between 1-20 MB)
+            const fileSize = Math.random() * 19 + 1;
+            downloadStats.totalSize += fileSize;
+
+            // Save stats
+            saveDownloadStats();
+            updateStatsDisplay();
+
+            // Show download modal
+            document.getElementById('downloadMessage').textContent = `Downloading ${fileName}...`;
+            document.getElementById('downloadModal').classList.remove('hidden');
+
+            // Simulate download completion
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+                
+                // Create a blob URL for demonstration (in real app, this would be actual file)
+                const blob = new Blob(['Sample file content'], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                
+                // Create download link
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                // Update modal message
+                document.getElementById('downloadMessage').textContent = `${fileName} has been downloaded successfully!`;
+            }, 2000);
+        }
+
+        function loadDownloadStats() {
+            const saved = localStorage.getItem('downloadStats');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                downloadStats = { ...downloadStats, ...parsed };
+                
+                // Reset today's count if it's a new day
+                const lastDate = localStorage.getItem('lastDownloadDate');
+                const today = new Date().toDateString();
+                if (lastDate !== today) {
+                    downloadStats.today = 0;
+                    localStorage.setItem('lastDownloadDate', today);
+                }
+            }
+        }
+
+        function saveDownloadStats() {
+            localStorage.setItem('downloadStats', JSON.stringify(downloadStats));
+            localStorage.setItem('lastDownloadDate', new Date().toDateString());
+        }
+
+        function updateStatsDisplay() {
+            document.getElementById('totalDownloads').textContent = downloadStats.total;
+            document.getElementById('todayDownloads').textContent = downloadStats.today;
+            document.getElementById('totalSize').textContent = Math.round(downloadStats.totalSize) + ' MB';
+
+            // Find most popular resource
+            let mostPopular = '-';
+            let maxDownloads = 0;
+            for (const [file, count] of Object.entries(downloadStats.popular)) {
+                if (count > maxDownloads) {
+                    maxDownloads = count;
+                    mostPopular = file.replace('.pdf', '').replace(/-/g, ' ');
+                }
+            }
+            document.getElementById('popularResource').textContent = mostPopular;
+        }
+
+        function closeDownloadModal() {
+            document.getElementById('downloadModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

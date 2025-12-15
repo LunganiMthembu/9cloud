@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/blue-logo.ico" type="image/x-icon">
+    <title>African Humanities University - Liberal Education for Independent Thinking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'university-blue': '#1e40af',
+                        'university-light-blue': '#3b82f6',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans bg-white dark:bg-gray-900 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-100 dark:border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-university-blue rounded-sm flex items-center justify-center mr-3">
+                                <span class="text-white font-bold text-sm">AHU</span>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-semibold text-gray-900 dark:text-white">African Humanities</div>
+                                <div class="text-gray-600 dark:text-gray-300">University</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="index.html" class="text-university-blue font-medium px-3 py-2 text-sm transition-colors">Home</a>
+                        <a href="academics.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Academics</a>
+                        <a href="quiz.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Quiz</a>
+                        <a href="flashcards.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Flashcards</a>
+                        <a href="progress.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Progress</a>
+                        <a href="resources.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Resources</a>
+                        <a href="contact.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue px-3 py-2 text-sm font-medium transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Dark Mode Toggle & Mobile Menu -->
+                <div class="flex items-center space-x-4">
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="md:hidden">
+                        <button type="button" id="mobileMenuBtn" class="bg-white dark:bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="md:hidden hidden" id="mobileMenu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+                <a href="index.html" class="text-university-blue block px-3 py-2 text-base font-medium">Home</a>
+                <a href="academics.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Academics</a>
+                <a href="quiz.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Quiz</a>
+                <a href="flashcards.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Flashcards</a>
+                <a href="progress.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Progress</a>
+                <a href="resources.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Resources</a>
+                <a href="contact.html" class="text-gray-700 dark:text-gray-300 hover:text-university-blue block px-3 py-2 text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="space-y-8">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+                        Liberal Education for Independent Thinking
+                    </h1>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="window.location.href='contact.html'" class="bg-gray-900 dark:bg-gray-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors flex items-center justify-center group">
+                            Write Us
+                            <svg class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </button>
+                        
+                        <button class="bg-university-blue text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                            Support
+                        </button>
+                    </div>
+
+                    <!-- Staff Member Card -->
+                    <div class="flex items-center space-x-4 pt-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                        <div class="w-12 h-12 bg-university-blue rounded-full flex items-center justify-center">
+                            <span class="text-white font-semibold text-lg">AK</span>
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-white">Alice Klarson</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Admissions Counselor</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Content - Graduate Image -->
+                <div class="relative">
+                    <div class="relative z-10">
+                        <img src="images/A_Graduate_Girl.png" alt="Smiling graduate in cap and gown holding diploma" class="w-full h-auto rounded-2xl shadow-2xl object-cover">
+                    </div>
+                    <!-- Background decoration -->
+                    <div class="absolute top-8 right-8 w-full h-full bg-university-blue rounded-2xl -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-university-blue text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Why EHU -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">Why AHU?</h2>
+                    <div class="w-16 h-1 bg-white rounded"></div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="text-center">
+                        <div class="text-sm text-blue-200 mb-2">Alumni Since 1992</div>
+                        <div class="text-4xl font-bold">3528</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-blue-200 mb-2">Local Students</div>
+                        <div class="text-4xl font-bold">48%</div>
+                    </div>
+                </div>
+
+                <!-- Study Programs -->
+                <div class="bg-gray-900 rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold">Study Programs</h3>
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                            <span class="text-gray-900 font-semibold">SP</span>
+                        </div>
+                    </div>
+                    <button onclick="window.location.href='academics.html'" class="bg-university-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors w-full">
+                        More Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access Section -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Quick Access</h2>
+                <p class="text-gray-600 dark:text-gray-400">Explore our learning tools and resources</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="quiz.html" class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow group">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Take Quiz</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Test your knowledge with interactive quizzes</p>
+                </a>
+
+                <a href="flashcards.html" class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow group">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Flashcards</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Study with interactive flashcards</p>
+                </a>
+
+                <a href="progress.html" class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow group">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Track Progress</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Monitor your learning progress</p>
+                </a>
+
+                <a href="resources.html" class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow group">
+                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Resources</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Access study materials and PDFs</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Simple mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+        });
+    </script>
+</body>
+</html>
